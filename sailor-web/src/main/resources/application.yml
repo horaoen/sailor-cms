@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: dev
+  mandatory-file-encoding: UTF-8
+  mvc:
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      add-mappings: false
+mybatis:
+  mapper-locations: mapper/*Mapper.xml
+  type-aliases-package: com.horaoen.sailor.web.model
+  config-location: classpath:config/mybatis-config.xml
