@@ -1,8 +1,6 @@
 package com.horaoen.sailor.web.service.impl;
 
-import com.horaoen.sailor.sdk.autoconfigure.exception.ForbiddenException;
-import com.horaoen.sailor.sdk.autoconfigure.exception.NotFoundException;
-import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
+import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.model.UserDo;

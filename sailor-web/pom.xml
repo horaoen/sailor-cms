@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.horaoen</groupId>
-            <artifactId>sailor-sdk</artifactId>
+            <artifactId>sailor-cms-spring-boot-starter</artifactId>
             <version>1.0.0</version>
         </dependency>
 

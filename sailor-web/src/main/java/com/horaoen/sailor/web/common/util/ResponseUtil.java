@@ -1,7 +1,7 @@
 package com.horaoen.sailor.web.common.util;
 
-import com.horaoen.sailor.sdk.autoconfigure.bean.Code;
-import com.horaoen.sailor.sdk.autoconfigure.util.RequestUtil;
+import com.horaoen.sailor.autoconfigure.bean.Code;
+import com.horaoen.sailor.autoconfigure.util.RequestUtil;
 import com.horaoen.sailor.web.vo.UnifyResponseVo;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;

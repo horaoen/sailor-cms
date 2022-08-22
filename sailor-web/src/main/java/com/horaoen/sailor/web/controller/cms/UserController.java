@@ -1,12 +1,15 @@
 package com.horaoen.sailor.web.controller.cms;
 
-import com.horaoen.sailor.sdk.autoconfigure.exception.NotFoundException;
-import com.horaoen.sailor.sdk.core.token.DoubleJWT;
-import com.horaoen.sailor.sdk.core.token.Tokens;
+import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
+import com.horaoen.sailor.autoconfigure.exception.ParameterException;
+import com.horaoen.sailor.core.token.DoubleJWT;
+import com.horaoen.sailor.core.token.Tokens;
 import com.horaoen.sailor.web.dto.user.LoginDto;
 import com.horaoen.sailor.web.model.UserDo;
 import com.horaoen.sailor.web.service.UserIdentityService;
 import com.horaoen.sailor.web.service.UserService;
+import com.horaoen.sailor.web.vo.UnifyResponseVo;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,7 +40,8 @@ public class UserController {
      * 用户登陆
      */
     @PostMapping("/login")
-    public Tokens login(@RequestBody @Validated LoginDto validator) {
+    @Operation(description = "用户登陆")
+    public UnifyResponseVo<Tokens> login(@RequestBody @Validated LoginDto validator) {
         UserDo user = userService.getUserByUsername(validator.getUsername());
         if (user == null) {
             throw new NotFoundException(10021);
@@ -47,9 +51,10 @@ public class UserController {
                 user.getUsername(),
                 validator.getPassword());
         if (!valid) {
-            throw new ParameterException("username or password is fault", 10031);
+            throw new ParameterException(10031);
         }
-        return jwt.generateTokens(user.getId());
+        
+        return new UnifyResponseVo<>(jwt.generateTokens(user.getId()));
     }
     
     

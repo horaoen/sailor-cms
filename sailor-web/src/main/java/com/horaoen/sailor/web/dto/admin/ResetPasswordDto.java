@@ -1,6 +1,6 @@
 package com.horaoen.sailor.web.dto.admin;
 
-import com.horaoen.sailor.sdk.autoconfigure.validator.EqualField;
+import com.horaoen.sailor.autoconfigure.validator.EqualField;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

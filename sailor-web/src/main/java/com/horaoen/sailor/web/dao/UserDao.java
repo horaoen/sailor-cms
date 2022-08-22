@@ -20,4 +20,8 @@ public interface UserDao {
     List<UserDo> selectUsersByGroupExcludedRoot(@Param("groupId") Long groupId, @Param("rootGroupId") Long rootGroupId);
     
      int deleteById(Long userId);
+
+    UserDo selectByUsername(String username);
+
+    UserDo getUserByUserId(Long userId);
 }

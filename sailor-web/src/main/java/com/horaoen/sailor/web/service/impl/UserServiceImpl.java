@@ -48,4 +48,14 @@ public class UserServiceImpl implements UserService {
         return userDao.deleteById(userId) > 0;
     }
 
+    @Override
+    public UserDo getUserByUsername(String username) {
+        return userDao.selectByUsername(username);
+    }
+
+    @Override
+    public UserDo getUserByUserId(Long userId) {
+        return userDao.getUserByUserId(userId);
+    }
+
 }

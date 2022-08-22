@@ -1,7 +1,10 @@
 package com.horaoen.sailor.web.dao;
 
+import com.horaoen.sailor.web.model.UserIdentityDo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * @author horaoen
@@ -23,4 +26,11 @@ public interface UserIdentityDao {
      * @return 是否删除成功
      */
     int deleteById(Long userId);
+
+    /**
+     * 通过用户id获取凭证信息
+     * @param userId 用户id
+     * @return 凭证信息
+     */
+    List<UserIdentityDo> selectUserIdentityByUserId(Long userId);
 }

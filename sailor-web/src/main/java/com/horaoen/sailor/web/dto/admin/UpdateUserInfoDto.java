@@ -1,6 +1,6 @@
 package com.horaoen.sailor.web.dto.admin;
 
-import com.horaoen.sailor.sdk.autoconfigure.validator.LongList;
+import com.horaoen.sailor.autoconfigure.validator.LongList;
 import lombok.Data;
 
 import java.util.List;

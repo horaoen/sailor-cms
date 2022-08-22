@@ -27,7 +27,6 @@
     </properties>
 
     <modules>
-        <module>sailor-sdk</module>
         <module>sailor-web</module>
     </modules>
 

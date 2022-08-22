@@ -36,4 +36,11 @@ public interface UserService {
      * @return 
      */
     UserDo getUserByUsername(String username);
+    
+    /**
+     * 通过用户id获取用户
+     * @param userId 用户id
+     * @return 用户数据
+     */
+    UserDo getUserByUserId(Long userId);
 }

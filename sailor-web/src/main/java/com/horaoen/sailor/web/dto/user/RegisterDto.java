@@ -1,7 +1,7 @@
 package com.horaoen.sailor.web.dto.user;
 
-import com.horaoen.sailor.sdk.autoconfigure.validator.EqualField;
-import com.horaoen.sailor.sdk.autoconfigure.validator.LongList;
+import com.horaoen.sailor.autoconfigure.validator.EqualField;
+import com.horaoen.sailor.autoconfigure.validator.LongList;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;

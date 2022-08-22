@@ -1,7 +1,6 @@
 package com.horaoen.sailor.web.vo;
 
-
-import com.horaoen.sailor.sdk.autoconfigure.bean.Code;
+import com.horaoen.sailor.autoconfigure.bean.Code;
 import com.horaoen.sailor.web.common.util.ResponseUtil;
 import org.springframework.http.HttpStatus;
 

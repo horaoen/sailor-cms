@@ -21,4 +21,13 @@ public interface UserIdentityService {
      * @return 是否删除成功
      */
     boolean deleteUserIdentity(Long userId);
+
+    /**
+     * 验证用户名密码
+     * @param id 用户id
+     * @param username 用户名
+     * @param password 密码
+     * @return 是否验证成功
+     */
+    boolean verifyUsernamePassword(Long id, String username, String password);
 }

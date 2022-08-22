@@ -1,8 +1,9 @@
 package com.horaoen.sailor.web.common.aop;
 
 import cn.hutool.core.util.StrUtil;
-import com.horaoen.sailor.sdk.autoconfigure.bean.Code;
-import com.horaoen.sailor.sdk.autoconfigure.exception.HttpException;
+import com.horaoen.sailor.autoconfigure.bean.Code;
+import com.horaoen.sailor.autoconfigure.exception.HttpException;
+import com.horaoen.sailor.autoconfigure.util.RequestUtil;
 import com.horaoen.sailor.web.common.configuration.CodeMessageConfiguration;
 import com.horaoen.sailor.web.vo.UnifyResponseVo;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.horaoen.sailor.sdk.autoconfigure.util.RequestUtil.getSimpleRequest;
+
 
 /**
  * @author horaoen
@@ -50,7 +51,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<?> processException(HttpException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> unifyResponse = new UnifyResponseVo<>();
-        unifyResponse.setRequest(getSimpleRequest(request));
+        unifyResponse.setRequest(RequestUtil.getSimpleRequest(request));
         int code = exception.getCode();
         boolean messageOnly = exception.isMessageOnly();
         unifyResponse.setCode(code);
@@ -81,7 +82,7 @@ public class RestExceptionHandler {
 
     private UnifyResponseVo<?> getMapUnifyResponseVo(HttpServletRequest request, HttpServletResponse response, Map<String, Object> msg) {
         UnifyResponseVo<Map<String, Object>> unifyResponse = new UnifyResponseVo<>();
-        unifyResponse.setRequest(getSimpleRequest(request));
+        unifyResponse.setRequest(RequestUtil.getSimpleRequest(request));
         unifyResponse.setMessage(msg);
         unifyResponse.setCode(Code.PARAMETER_ERROR.getCode());
         response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -95,7 +96,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<?> processException(NoHandlerFoundException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> unifyResponse = new UnifyResponseVo<>();
-        unifyResponse.setRequest(getSimpleRequest(request));
+        unifyResponse.setRequest(RequestUtil.getSimpleRequest(request));
         String message = CodeMessageConfiguration.getMessage(10025);
         if (StrUtil.isBlank(message)) {
             unifyResponse.setMessage(exception.getMessage());
@@ -114,7 +115,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<String> processException(MissingServletRequestParameterException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> result = new UnifyResponseVo<>();
-        result.setRequest(getSimpleRequest(request));
+        result.setRequest(RequestUtil.getSimpleRequest(request));
 
         String errorMessage = CodeMessageConfiguration.getMessage(10150);
         if (StrUtil.isBlank(errorMessage)) {
@@ -134,7 +135,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<String> processException(MethodArgumentTypeMismatchException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> result = new UnifyResponseVo<>();
-        result.setRequest(getSimpleRequest(request));
+        result.setRequest(RequestUtil.getSimpleRequest(request));
         String errorMessage = CodeMessageConfiguration.getMessage(10160);
         if (StrUtil.isBlank(errorMessage)) {
             result.setMessage(exception.getMessage());
@@ -153,7 +154,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<String> processException(ServletException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> result = new UnifyResponseVo<>();
-        result.setRequest(getSimpleRequest(request));
+        result.setRequest(RequestUtil.getSimpleRequest(request));
         result.setMessage(exception.getMessage());
         result.setCode(Code.FAIL.getCode());
         response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -187,7 +188,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<String> processException(HttpMessageNotReadableException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> result = new UnifyResponseVo<>();
-        result.setRequest(getSimpleRequest(request));
+        result.setRequest(RequestUtil.getSimpleRequest(request));
         String errorMessage = CodeMessageConfiguration.getMessage(10170);
         if (StrUtil.isBlank(errorMessage)) {
             result.setMessage(exception.getMessage());
@@ -206,7 +207,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<?> processException(TypeMismatchException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> result = new UnifyResponseVo<>();
-        result.setRequest(getSimpleRequest(request));
+        result.setRequest(RequestUtil.getSimpleRequest(request));
         result.setMessage(exception.getMessage());
         result.setCode(Code.PARAMETER_ERROR.getCode());
         response.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -220,7 +221,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<?> processException(MaxUploadSizeExceededException exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> result = new UnifyResponseVo<>();
-        result.setRequest(getSimpleRequest(request));
+        result.setRequest(RequestUtil.getSimpleRequest(request));
         String errorMessage = CodeMessageConfiguration.getMessage(10180);
         if (StrUtil.isBlank(errorMessage)) {
             result.setMessage(exception.getMessage());
@@ -239,7 +240,7 @@ public class RestExceptionHandler {
     public UnifyResponseVo<?> processException(Exception exception, HttpServletRequest request, HttpServletResponse response) {
         log.error("", exception);
         UnifyResponseVo<String> result = new UnifyResponseVo<>();
-        result.setRequest(getSimpleRequest(request));
+        result.setRequest(RequestUtil.getSimpleRequest(request));
         result.setMessage(Code.INTERNAL_SERVER_ERROR.getZhDescription());
         result.setCode(Code.INTERNAL_SERVER_ERROR.getCode());
         response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());

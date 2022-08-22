@@ -73,6 +73,19 @@
         )
             AND u.delete_time IS NULL
     </select>
+    
+    <select id="selectByUsername" resultType="com.horaoen.sailor.web.model.UserDo">
+        SELECT *
+        FROM sailor_user AS u
+        WHERE u.username = #{username}
+          AND u.delete_time IS NULL
+    </select>
+    <select id="getUserByUserId" resultType="com.horaoen.sailor.web.model.UserDo">
+        SELECT *
+        FROM sailor_user AS u
+        WHERE u.id = #{userId}
+          AND u.delete_time IS NULL
+    </select>
 
 
 </mapper>

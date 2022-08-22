@@ -18,4 +18,12 @@
         WHERE
             user_id = #{userId}
     </update>
+    <select id="selectUserIdentityByUserId" resultType="com.horaoen.sailor.web.model.UserIdentityDo">
+        SELECT *
+        FROM
+            sailor_user_identity
+        WHERE
+            user_id = #{userId}
+            AND delete_time IS NULL
+    </select>
 </mapper>
