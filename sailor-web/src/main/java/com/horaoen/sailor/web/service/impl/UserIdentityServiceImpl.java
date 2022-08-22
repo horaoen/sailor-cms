@@ -1,45 +1,30 @@
 package com.horaoen.sailor.web.service.impl;
 
+import com.horaoen.sailor.sdk.core.util.EncryptUtil;
+import com.horaoen.sailor.web.dao.UserIdentityDao;
 import com.horaoen.sailor.web.model.UserIdentityDo;
 import com.horaoen.sailor.web.service.UserIdentityService;
+import org.springframework.stereotype.Service;
 
 /**
  * @author horaoen
  */
+@Service
 public class UserIdentityServiceImpl implements UserIdentityService {
+    private final UserIdentityDao userIdentityDao;
 
-    @Override
-    public UserIdentityDo createIdentity(Long userId, String identityType, String identifier, String credential) {
-        return null;
-    }
-
-    @Override
-    public UserIdentityDo createIdentity(UserIdentityDo userIdentity) {
-        return null;
-    }
-
-    @Override
-    public UserIdentityDo createUsernamePasswordIdentity(Long userId, String username, String password) {
-        return null;
-    }
-
-    @Override
-    public boolean verifyUsernamePassword(Long userId, String username, String password) {
-        return false;
+    public UserIdentityServiceImpl(UserIdentityDao userIdentityDao) {
+        this.userIdentityDao = userIdentityDao;
     }
 
     @Override
     public boolean changePassword(Long userId, String password) {
-        return false;
+        String encrypted = EncryptUtil.encrypt(password);
+        return userIdentityDao.updatePasswordById(userId, encrypted) > 0;
     }
 
     @Override
-    public boolean changeUsername(Long userId, String username) {
-        return false;
-    }
-
-    @Override
-    public boolean changeUsernamePassword(Long userId, String username, String password) {
-        return false;
+    public boolean deleteUserIdentity(Long userId) {
+        return userIdentityDao.deleteById(userId) > 0;
     }
 }

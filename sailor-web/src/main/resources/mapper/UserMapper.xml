@@ -11,6 +11,12 @@
                 #{avatar},
                 #{email})
     </insert>
+    
+    <update id="deleteById">
+        UPDATE sailor_user
+        SET delete_time = now()
+        WHERE id = #{userId}
+    </update>
 
     <select id="selectCountByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*)

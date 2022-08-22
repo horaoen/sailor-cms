@@ -2,6 +2,7 @@ package com.horaoen.sailor.web.vo;
 
 import com.horaoen.sailor.sdk.autoconfigure.bean.Code;
 import com.horaoen.sailor.sdk.autoconfigure.util.RequestUtil;
+import com.horaoen.sailor.web.common.configuration.CodeMessageConfiguration;
 import com.horaoen.sailor.web.common.util.ResponseUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,24 +28,25 @@ public class UnifyResponseVo<T> {
 
     public UnifyResponseVo(int code) {
         this.code = code;
+        this.message = CodeMessageConfiguration.getMessage(code);
         this.request = RequestUtil.getSimpleRequest();
     }
 
     public UnifyResponseVo(T message) {
         this.code = Code.SUCCESS.getCode();
-        this.data = message;
+        this.message = message;
         this.request = RequestUtil.getSimpleRequest();
     }
 
     public UnifyResponseVo(int code, T message) {
         this.code = code;
-        this.data = message;
+        this.message = message;
         this.request = RequestUtil.getSimpleRequest();
     }
 
     public UnifyResponseVo(HttpStatus httpStatus) {
         this.code = Code.SUCCESS.getCode();
-        this.data = (T) Code.SUCCESS.getDescription();
+        this.message = Code.SUCCESS.getDescription();
         this.request = RequestUtil.getSimpleRequest();
         ResponseUtil.setCurrentResponseHttpStatus(httpStatus.value());
     }

@@ -12,16 +12,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GroupVo {
+public class PermissionVo {
+    /**
+     * 权限名称，例如：访问首页
+     */
     private String name;
 
     /**
-     * 分组信息：例如：搬砖的人
+     * 权限所属模块，例如：人员管理
      */
-    private String info;
+    private String module;
 
     /**
-     * 分组级别（root、guest、user，其中 root、guest 分组只能存在一个）
+     * 0：关闭 1：开启
      */
-    private String level;
+    private Boolean mount;
 }

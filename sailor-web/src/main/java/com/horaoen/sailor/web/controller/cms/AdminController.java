@@ -2,19 +2,20 @@ package com.horaoen.sailor.web.controller.cms;
 
 import com.github.pagehelper.PageHelper;
 import com.horaoen.sailor.web.common.util.PageUtil;
+import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
+import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.service.AdminService;
-import com.horaoen.sailor.web.vo.PageResponseVo;
-import com.horaoen.sailor.web.vo.UserInfoVo;
+import com.horaoen.sailor.web.vo.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Positive;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author horaoen
@@ -29,6 +30,14 @@ public class AdminController {
         this.adminService = adminService;
     }
 
+
+    @GetMapping("/permission")
+    @Operation(summary = "获取全部权限")
+    public UnifyResponseVo<Map<String, List<PermissionVo>>> getAllPermissions() {
+        Map<String, List<PermissionVo>> result = adminService.getAllStructuralPermissions();
+        return new UnifyResponseVo<>(result);
+    }
+    
     @GetMapping("/users")
     @Operation(
             description = "管理员查询用户",
@@ -44,7 +53,38 @@ public class AdminController {
             @Min(value = 0, message = "{page.number.min}") int page) {
         PageHelper.startPage(page, count);
         List<UserInfoVo> userInfos = adminService.getUserByGroupId(groupId);
-        return PageUtil.build(userInfos);
+        return PageUtil.build(userInfos); 
+    }
+
+    @PutMapping("/user/{id}/password")
+    @Operation(summary = "修改用户密码")
+    public UpdatedVo<?> changeUserPassword(
+            @PathVariable @Positive(message = "{id.positive}") Long id, 
+            @RequestBody @Validated ResetPasswordDto dto) {
+        boolean res = adminService.changeUserPassword(id, dto);
+        if(!res) {
+            return new UpdatedVo<>(10011);
+        }
+        return new UpdatedVo<>(4);
+    }
+
+    @DeleteMapping("/user/{userId}")
+    public DeletedVo<?> deleteUser(@PathVariable @Positive(message = "{id.positive}") Long userId) {
+        boolean res = adminService.deleteUser(userId);
+        if(!res) {
+            return new DeletedVo<>(10200);
+        }
+        return new DeletedVo<>(5);
+    }
+
+    @PutMapping("/user/{id}")
+    public UpdatedVo<?> updateUser(@PathVariable @Positive(message = "{id.positive}") Long id, 
+                                   @RequestBody @Validated UpdateUserInfoDto dto) {
+        boolean res = adminService.updateUserInfo(id, dto);
+        if(!res) {
+            return new UpdatedVo<>(10200);
+        }
+        return new UpdatedVo<>(6);
     }
     
     

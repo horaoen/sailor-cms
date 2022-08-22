@@ -18,4 +18,6 @@ public interface UserDao {
     void insert(@Param("user") UserDo user);
 
     List<UserDo> selectUsersByGroupExcludedRoot(@Param("groupId") Long groupId, @Param("rootGroupId") Long rootGroupId);
+    
+     int deleteById(Long userId);
 }

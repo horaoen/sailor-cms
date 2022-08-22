@@ -49,7 +49,7 @@ public class HttpException extends RuntimeException implements BaseResponse {
 
     public HttpException(String message, int code, int httpCode) {
         super(message);
-        this.messageOnly = false;
+        this.messageOnly = false;   
         this.httpCode = httpCode;
         this.code = code;
     }

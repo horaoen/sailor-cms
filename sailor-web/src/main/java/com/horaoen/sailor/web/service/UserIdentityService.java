@@ -1,29 +1,24 @@
 package com.horaoen.sailor.web.service;
 
-import com.horaoen.sailor.web.model.UserIdentityDo;
 
 /**
  * @author horaoen
  */
 public interface UserIdentityService {
 
-    UserIdentityDo createIdentity(Long userId,
-                                  String identityType,
-                                  String identifier,
-                                  String credential);
-
-    UserIdentityDo createIdentity(UserIdentityDo userIdentity);
-
-    UserIdentityDo createUsernamePasswordIdentity(Long userId,
-                                                  String username,
-                                                  String password);
-
-
-    boolean verifyUsernamePassword(Long userId, String username, String password);
-
+    /**
+     * 通过用户id更新用户密码
+     *
+     * @param userId 用户id
+     * @param password 密码              
+     * @return 用户数据
+     */
     boolean changePassword(Long userId, String password);
 
-    boolean changeUsername(Long userId, String username);
-
-    boolean changeUsernamePassword(Long userId, String username, String password);
+    /**
+     * 通过用户id删除用户
+     * @param userId 用户id
+     * @return 是否删除成功
+     */
+    boolean deleteUserIdentity(Long userId);
 }
