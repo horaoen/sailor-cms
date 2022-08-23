@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.horaoen.sailor.web.dao.GroupDao">
+    <update id="deleteGroup">
+        UPDATE sailor_group
+        SET
+            is_deleted = now()
+        WHERE
+            id = #{id}
+    </update>
+
+    <select id="selectGroupByLevel" resultType="com.horaoen.sailor.web.model.GroupDo">
+        SELECT *
+        FROM sailor_group
+        WHERE level = #{level}
+          AND delete_time IS NULL
+    </select>
+
+    <select id="selectUserGroupsByUserId" resultType="com.horaoen.sailor.web.model.GroupDo">
+        SELECT g.id,
+               g.name,
+               g.info,
+               g.level,
+               g.create_time,
+               g.update_time,
+               g.delete_time
+        from sailor_group AS g
+        WHERE g.delete_time IS NULL
+          AND g.id IN
+              (SELECT ug.group_id
+               FROM sailor_user AS u
+                        LEFT JOIN sailor_user_group as ug
+                                  ON ug.user_id = u.id
+               WHERE u.id = #{userId}
+                 AND u.delete_time IS NULL)
+    </select>
+    
+    <select id="selectAllGroups" resultType="com.horaoen.sailor.web.model.GroupDo">
+        SELECT *
+        FROM sailor_group
+        WHERE delete_time IS NULL
+    </select>
+    
+    <select id="selectGroupById" resultType="com.horaoen.sailor.web.vo.GroupVo">
+        SELECT *
+        FROM sailor_group
+        WHERE id = #{id}
+          AND delete_time IS NULL
+    </select>
+</mapper>
