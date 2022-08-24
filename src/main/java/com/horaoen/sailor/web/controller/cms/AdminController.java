@@ -32,7 +32,7 @@ public class AdminController {
 
 
     @GetMapping("/permission")
-    @Operation(summary = "获取全部权限")
+    @Operation(summary = "角色管理-获取全部权限")
     public UnifyResponseVo<Map<String, List<PermissionVo>>> getAllPermissions() {
         Map<String, List<PermissionVo>> result = adminService.getAllStructuralPermissions();
         return new UnifyResponseVo<>(result);
@@ -40,7 +40,7 @@ public class AdminController {
     
     @GetMapping("/users")
     @Operation(
-            summary = "管理员查询用户",
+            summary = "用户管理-管理员查询用户",
             description = "根据分组查询root用户以外的所有用户, 如果groupId不填默认查询所有用户组"
     )
     public PageResponseVo<UserInfoVo> getUsers(
@@ -57,7 +57,7 @@ public class AdminController {
     }
 
     @PutMapping("/user/{id}/password")
-    @Operation(summary = "修改用户密码")
+    @Operation(summary = "用户管理-修改用户密码")
     public UpdatedVo<?> changeUserPassword(
             @PathVariable @Positive(message = "{id.positive}") Long id, 
             @RequestBody @Validated ResetPasswordDto dto) {
@@ -69,7 +69,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/user/{userId}")
-    @Operation(summary = "删除用户")
+    @Operation(summary = "用户管理-删除用户")
     public DeletedVo<?> deleteUser(@PathVariable @Positive(message = "{id.positive}") Long userId) {
         boolean res = adminService.deleteUser(userId);
         if(!res) {
@@ -79,7 +79,7 @@ public class AdminController {
     }
 
     @PutMapping("/user/{id}")
-    @Operation(summary = "修改用户用户组")
+    @Operation(summary = "用户管理-修改用户用户组")
     public UpdatedVo<?> updateUser(@PathVariable @Positive(message = "{id.positive}") Long id, 
                                    @RequestBody @Validated UpdateUserInfoDto dto) {
         boolean res = adminService.updateUserInfo(id, dto);
@@ -90,21 +90,21 @@ public class AdminController {
     }
     
     @GetMapping("/group")
-    @Operation(summary = "获取所有角色", description = "角色和用户组是同一概念")
+    @Operation(summary = "角色管理-获取所有角色", description = "角色和用户组是同一概念")
     public UnifyResponseVo<List<GroupVo>> getAllGroup() {
         List<GroupVo> groups = adminService.getAllGroups();
         return new UnifyResponseVo<>(groups);
     }
 
     @DeleteMapping("/group/{id}")
-    @Operation(summary = "删除角色")
+    @Operation(summary = "角色管理-删除角色")
     public DeletedVo<?> deleteGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
         adminService.deleteGroup(id);
         return new DeletedVo<>(8);
     }
 
     @GetMapping("/group/{id}")
-    @Operation(summary = "获取角色信息及权限")
+    @Operation(summary = "角色管理-获取角色信息及权限")
     public UnifyResponseVo<Map<String, List<PermissionForSelectVo>>> getGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
         Map<String, List<PermissionForSelectVo>> group = adminService.getGroup(id);
         return new UnifyResponseVo<>(group);
