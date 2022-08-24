@@ -87,6 +87,14 @@
         </dependency>
         
     </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub sailor-cms-core Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/horaoen/sailor-cms-core</url>
+        </repository>
+    </repositories>
 
 
     <build>

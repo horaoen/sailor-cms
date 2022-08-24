@@ -69,6 +69,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/user/{userId}")
+    @Operation(summary = "删除用户")
     public DeletedVo<?> deleteUser(@PathVariable @Positive(message = "{id.positive}") Long userId) {
         boolean res = adminService.deleteUser(userId);
         if(!res) {
@@ -100,6 +101,8 @@ public class AdminController {
         adminService.deleteGroup(id);
         return new DeletedVo<>(8);
     }
+    
+    
     
     
     
