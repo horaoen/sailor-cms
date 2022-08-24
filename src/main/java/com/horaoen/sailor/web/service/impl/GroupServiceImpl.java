@@ -1,13 +1,14 @@
 package com.horaoen.sailor.web.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.horaoen.sailor.web.bo.GroupPermissionBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.dao.GroupDao;
-import com.horaoen.sailor.web.dao.UserGroupDao;
 import com.horaoen.sailor.web.model.GroupDo;
 import com.horaoen.sailor.web.service.GroupService;
 import com.horaoen.sailor.web.service.PermissionService;
 import com.horaoen.sailor.web.vo.GroupVo;
+import com.horaoen.sailor.web.vo.PermissionVo;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,11 @@ import java.util.stream.Collectors;
 @Service
 public class GroupServiceImpl implements GroupService {
     private final GroupDao groupDao;
+    private final PermissionService permissionService;
 
-    public GroupServiceImpl(GroupDao groupDao) {
+    public GroupServiceImpl(GroupDao groupDao, PermissionService permissionService) {
         this.groupDao = groupDao;
+        this.permissionService = permissionService;
     }
 
     @Override
@@ -77,7 +80,17 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public GroupVo getGroupById(Long id) {
-        return groupDao.selectGroupById(id);
+        GroupDo groupDo = groupDao.selectGroupById(id);
+        GroupVo groupVo = new GroupVo();
+        BeanUtil.copyProperties(groupDo, groupVo);
+        return groupVo;
+    }
+
+    @Override
+    public GroupPermissionBo getGroupAndPermissions(Long id) {
+        GroupDo groupDo = groupDao.selectGroupById(id);
+        List<PermissionVo> permissions = permissionService.getPermissionByGroupId(groupDo.getId());
+        return new GroupPermissionBo(groupDo, permissions);
     }
 
     @Override

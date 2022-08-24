@@ -1,9 +1,11 @@
 package com.horaoen.sailor.web.service;
 
+import com.horaoen.sailor.web.bo.GroupPermissionBo;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.model.GroupDo;
 import com.horaoen.sailor.web.vo.GroupVo;
+import com.horaoen.sailor.web.vo.PermissionForSelectVo;
 import com.horaoen.sailor.web.vo.PermissionVo;
 import com.horaoen.sailor.web.vo.UserInfoVo;
 
@@ -80,4 +82,11 @@ public interface AdminService {
      * @return 是否删除成功
      */
     boolean deleteGroup(Long id);
+
+    /**
+     * 获得分组数据
+     * @param id 分组id
+     * @return 分组数据
+     */
+    Map<String, List<PermissionForSelectVo>> getGroup(Long id);
 }

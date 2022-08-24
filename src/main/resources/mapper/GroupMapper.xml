@@ -41,7 +41,7 @@
         WHERE delete_time IS NULL
     </select>
     
-    <select id="selectGroupById" resultType="com.horaoen.sailor.web.vo.GroupVo">
+    <select id="selectGroupById" resultType="com.horaoen.sailor.web.model.GroupDo">
         SELECT *
         FROM sailor_group
         WHERE id = #{id}

@@ -1,5 +1,6 @@
 package com.horaoen.sailor.web.service;
 
+import com.horaoen.sailor.web.bo.GroupPermissionBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.model.GroupDo;
 import com.horaoen.sailor.web.vo.GroupVo;
@@ -70,5 +71,13 @@ public interface GroupService {
      * @param id 组id
      * @return 组
      */
-    GroupVo getGroupById(Long id);  
+    GroupVo getGroupById(Long id);
+
+    /**
+     * 获得分组及其权限
+     *
+     * @param id 分组id
+     * @return 分组及权限
+     */
+    GroupPermissionBo getGroupAndPermissions(Long id);
 }

@@ -37,4 +37,15 @@ public class PermissionServiceImpl implements PermissionService {
     public List<PermissionDo> getPermissionByGroupIds(List<Long> userGroupIds) {
         return null;
     }
+
+    @Override
+    public List<PermissionVo> getPermissionByGroupId(Long id) {
+        List<PermissionDo> permissionDos = permissionDao.selectPermissionsByGroupId(id);
+        List<PermissionVo> permissionVos = permissionDos.stream().map(permissionDo -> {
+            PermissionVo permissionVo = new PermissionVo();
+            BeanUtil.copyProperties(permissionDo, permissionVo);
+            return permissionVo;
+        }).collect(Collectors.toList());
+        return permissionVos;
+    }
 }

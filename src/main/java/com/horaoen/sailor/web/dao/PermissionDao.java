@@ -15,4 +15,11 @@ public interface PermissionDao {
      * @return
      */
     List<PermissionDo> getAllPermissions(boolean mounted);
+
+    /**
+     * 根据groupId获取权限
+     * @param id 组id
+     * @return 权限集合
+     */
+    List<PermissionDo> selectPermissionsByGroupId(Long id);
 }

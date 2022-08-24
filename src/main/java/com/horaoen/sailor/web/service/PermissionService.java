@@ -18,4 +18,11 @@ public interface PermissionService {
 
     
     List<PermissionDo> getPermissionByGroupIds(List<Long> userGroupIds);
+
+    /**
+     * 根据groupIds获取权限
+     * @param id 组id
+     * @return 权限集合
+     */
+    List<PermissionVo> getPermissionByGroupId(Long id);
 }

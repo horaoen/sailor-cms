@@ -79,6 +79,7 @@ public class AdminController {
     }
 
     @PutMapping("/user/{id}")
+    @Operation(summary = "修改用户用户组")
     public UpdatedVo<?> updateUser(@PathVariable @Positive(message = "{id.positive}") Long id, 
                                    @RequestBody @Validated UpdateUserInfoDto dto) {
         boolean res = adminService.updateUserInfo(id, dto);
@@ -101,13 +102,13 @@ public class AdminController {
         adminService.deleteGroup(id);
         return new DeletedVo<>(8);
     }
-    
-    
-    
-    
-    
-    
-    
+
+    @GetMapping("/group/{id}")
+    @Operation(summary = "获取角色信息及权限")
+    public UnifyResponseVo<Map<String, List<PermissionForSelectVo>>> getGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
+        Map<String, List<PermissionForSelectVo>> group = adminService.getGroup(id);
+        return new UnifyResponseVo<>(group);
+    }
     
     
 }

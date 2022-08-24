@@ -39,7 +39,7 @@ public interface GroupDao {
      * @param id 组id
      * @return 组信息
      */
-    GroupVo selectGroupById(Long id);
+    GroupDo selectGroupById(Long id);
 
     /**
      * 根据id删除组信息

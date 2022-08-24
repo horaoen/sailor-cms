@@ -2,12 +2,14 @@ package com.horaoen.sailor.web.service.impl;
 
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
+import com.horaoen.sailor.web.bo.GroupPermissionBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.model.UserDo;
 import com.horaoen.sailor.web.service.*;
 import com.horaoen.sailor.web.vo.GroupVo;
+import com.horaoen.sailor.web.vo.PermissionForSelectVo;
 import com.horaoen.sailor.web.vo.PermissionVo;
 import com.horaoen.sailor.web.vo.UserInfoVo;
 import org.springframework.stereotype.Repository;
@@ -132,6 +134,33 @@ public class AdminServiceImpl implements AdminService {
         }
         throwGroupNotExistById(id);
         return groupService.deleteGroup(id);
+    }
+
+    @Override
+    public Map<String, List<PermissionForSelectVo>> getGroup(Long id) {
+        throwGroupNotExistById(id);
+        //结构化的系统权限
+        Map<String, List<PermissionVo>> allStructuralPermissions = getAllStructuralPermissions();
+        
+        //用于返回的供选择的用户组权限
+        Map<String, List<PermissionForSelectVo>> allStructuralPermissionsForSelect = new HashMap<>(0);
+        
+        List<PermissionVo> permissions = groupService.getGroupAndPermissions(id).getPermissions();
+        //遍历每一个module
+        allStructuralPermissions.forEach((module, permissionVos) -> {
+            //替换每一个module的list
+            List<PermissionForSelectVo> permissionForSelectVos = new ArrayList<>(0);
+            //遍历module下的每一个permission
+            permissionVos.forEach(permissionVo -> {
+                //如果当前permission在permissions中存在，则设置为true，否则设置为false
+                boolean exist = permissions.stream().anyMatch(it -> it.getId().equals(permissionVo.getId()));
+                PermissionForSelectVo permissionForSelectVo = new PermissionForSelectVo(permissionVo, exist);
+                permissionForSelectVos.add(permissionForSelectVo);
+            });
+            allStructuralPermissionsForSelect.put(module, permissionForSelectVos);
+        });
+        
+        return allStructuralPermissionsForSelect;
     }
 
     private void throwGroupNotExistById(Long id) {

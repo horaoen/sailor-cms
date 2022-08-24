@@ -8,4 +8,13 @@
         WHERE p.delete_time IS NULL
             AND p.mount = #{mounted}
     </select>
+    <select id="selectPermissionsByGroupId" resultType="com.horaoen.sailor.web.model.PermissionDo">
+        SELECT *
+        FROM sailor_permission AS p
+        WHERE  p.id in (
+            SELECT permission_id
+            FROM sailor_group_permission AS gp
+            WHERE gp.group_id = #{id}
+        ) AND p.delete_time IS NULL
+    </select>
 </mapper>
