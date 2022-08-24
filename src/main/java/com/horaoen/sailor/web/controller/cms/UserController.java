@@ -57,6 +57,7 @@ public class UserController {
     }
     
     @GetMapping("/refresh")
+    @Operation(summary = "刷新token")
     @RefreshRequired
     public Tokens getRefreshToken() {
         UserDo user = LocalUser.getLocalUser();
