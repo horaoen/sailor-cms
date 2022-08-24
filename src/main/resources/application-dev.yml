@@ -6,7 +6,7 @@ spring:
     log-request-details: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    password: 123456
+    password: Horaoen@624
     url: jdbc:mysql://42.192.5.249:3306/sailor?useSSL=false&serverTimezone=UTC&characterEncoding=UTF8
     username: root
 
