@@ -6,4 +6,15 @@
         INSERT INTO sailor_group_permission (group_id, permission_id)
         VALUES (#{groupId}, #{permissionId})
     </insert>
+    
+    <delete id="deleteByGroupId">
+        DELETE FROM sailor_group_permission
+        WHERE group_id = #{id}
+    </delete>
+
+    <select id="selectByGroupId" resultType="java.lang.Long">
+        SELECT permission_id 
+        FROM sailor_group_permission 
+        WHERE group_id = #{id}
+    </select>
 </mapper>

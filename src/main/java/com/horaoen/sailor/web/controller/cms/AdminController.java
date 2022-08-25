@@ -1,12 +1,12 @@
 package com.horaoen.sailor.web.controller.cms;
 
 import com.github.pagehelper.PageHelper;
-import com.horaoen.sailor.core.annotation.LoginRequired;
 import com.horaoen.sailor.web.bo.ModulePermissionBo;
 import com.horaoen.sailor.web.bo.ModulePermissionForSelectBo;
 import com.horaoen.sailor.web.common.util.PageUtil;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
+import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.service.AdminService;
 import com.horaoen.sailor.web.vo.*;
@@ -19,7 +19,6 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author horaoen
@@ -117,19 +116,22 @@ public class AdminController {
     @PostMapping("/group")
     @Operation(summary = "角色管理-新增角色")
     public CreatedVo<?> createGroup(@RequestBody @Validated NewGroupDto dto) {
-        adminService.createGroup(dto);
+        boolean res = adminService.createGroup(dto);
+        if(!res) {
+            return new CreatedVo<>(10202);
+        }
         return new CreatedVo<>(15);
     }
     
-//    @PutMapping("/group/{id}")
-//    @Operation(summary = "角色管理-修改角色")
-//    public UpdatedVo<?> updateGroup(@PathVariable @Positive(message = "{id.positive}") Long id, 
-//                                    @RequestBody @Validated UpdateGroupDto dto) {
-//        boolean res = adminService.updateGroup(id, dto);
-//        if(!res) {
-//            return new UpdatedVo<>(10200);
-//        }
-//        return new UpdatedVo<>(7);
-//    }
+    @PutMapping("/group/{id}")
+    @Operation(summary = "角色管理-修改角色")
+    public UpdatedVo<?> updateGroup(@PathVariable @Positive(message = "{id.positive}") Long id, 
+                                    @RequestBody @Validated UpdateGroupDto dto) {
+        boolean res = adminService.updateGroup(id, dto);
+        if(!res) {
+            return new UpdatedVo<>(10200);
+        }
+        return new UpdatedVo<>(7);
+    }
     
 }

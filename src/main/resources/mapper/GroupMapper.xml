@@ -10,10 +10,21 @@
             #{groupInfo}
         )
     </insert>
+    
     <update id="deleteGroup">
         UPDATE sailor_group
         SET
             delete_time = now()
+        WHERE
+            id = #{id}
+    </update>
+    
+    <update id="updateGroup">
+        UPDATE sailor_group
+        SET
+            name = #{groupName},
+            info = #{groupInfo},
+            update_time = now()
         WHERE
             id = #{id}
     </update>

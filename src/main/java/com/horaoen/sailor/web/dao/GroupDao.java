@@ -63,4 +63,11 @@ public interface GroupDao {
      * @return 分组信息
      */
     List<GroupDo> selectGroupByName(String name);
+
+    /**
+     * 更新分组信息
+     * @param groupDo 分组信息
+     * @return 更新结果
+     */
+    int updateGroup(GroupDo groupDo);
 }

@@ -94,4 +94,11 @@ public interface GroupService {
      * @return 是否创建成功
      */
     Long add(GroupDo groupDo);
+
+    /**
+     * 更新分组信息
+     * @param groupDo 分组信息
+     * @return 是否更新成功
+     */
+    boolean update(GroupDo groupDo);
 }

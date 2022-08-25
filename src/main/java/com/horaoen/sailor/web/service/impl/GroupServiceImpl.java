@@ -105,6 +105,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public boolean update(GroupDo groupDo) {
+        return groupDao.updateGroup(groupDo) > 0;
+    }
+
+    @Override
     public List<GroupVo> getUserGroupsByUserId(Long userId) {
         List<GroupDo> groupDos = groupDao.selectUserGroupsByUserId(userId);
         return groupDos.stream().map(groupDo -> {

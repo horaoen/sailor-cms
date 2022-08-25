@@ -1,7 +1,9 @@
 package com.horaoen.sailor.web.service.impl;
 
+import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Pair;
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
+import com.horaoen.sailor.autoconfigure.exception.HttpException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
 import com.horaoen.sailor.web.bo.ModulePermissionBo;
 import com.horaoen.sailor.web.bo.ModulePermissionForSelectBo;
@@ -9,6 +11,7 @@ import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.dao.GroupPermissionDao;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
+import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.model.GroupDo;
 import com.horaoen.sailor.web.model.UserDo;
@@ -186,6 +189,27 @@ public class AdminServiceImpl implements AdminService {
         } else {
             return false;
         }
+        return true;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateGroup(Long id, UpdateGroupDto dto) {
+        throwGroupNotExistById(id);
+        throwGroupNameExist(dto.getName());
+        GroupDo groupDo = new GroupDo();
+        BeanUtil.copyProperties(dto, groupDo);
+        groupDo.setId(id);
+        List<Long> permissions = dto.getPermissions();
+        permissions.forEach(this::throwPermisssionNotExistById);
+        boolean update = groupService.update(groupDo);
+        boolean delete = groupPermissionDao.deleteByGroupId(id) > 0;
+        if(!permissions.isEmpty()) {
+            permissions.forEach(permissionId -> groupPermissionDao.insert(id, permissionId));
+        } 
+        if(update && delete) {
+            throw new HttpException(10203);
+        } 
         return true;
     }
 
