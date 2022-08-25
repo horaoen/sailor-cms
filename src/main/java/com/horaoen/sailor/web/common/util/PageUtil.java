@@ -1,7 +1,7 @@
 package com.horaoen.sailor.web.common.util;
 
 import com.github.pagehelper.PageInfo;
-import com.horaoen.sailor.web.vo.PageResponseVo;
+import com.horaoen.sailor.web.vo.message.PageResponseVo;
 
 import java.util.List;
 

@@ -56,12 +56,13 @@ public class OpenApiConfiguration {
                 .pathsToMatch("/cms/**")
                 .build();
     }
-
+    
+    
     @Bean
-    public GroupedOpenApi v2Api() {
+    public GroupedOpenApi sccApi() {
         return GroupedOpenApi.builder()
-                .group("v2")
-                .pathsToMatch("/v2/**   ")
+                .group("scc")
+                .pathsToMatch("/scc/**")
                 .build();
     }
 }

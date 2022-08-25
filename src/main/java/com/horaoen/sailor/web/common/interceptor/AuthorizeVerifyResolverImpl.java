@@ -10,13 +10,12 @@ import com.horaoen.sailor.autoconfigure.exception.TokenInvalidException;
 import com.horaoen.sailor.autoconfigure.interfaces.AuthorizeVerifyResolver;
 import com.horaoen.sailor.core.token.DoubleJWT;
 import com.horaoen.sailor.web.common.LocalUser;
-import com.horaoen.sailor.web.model.PermissionDo;
-import com.horaoen.sailor.web.model.UserDo;
-import com.horaoen.sailor.web.service.GroupService;
-import com.horaoen.sailor.web.service.UserService;
+import com.horaoen.sailor.web.model.cms.PermissionDo;
+import com.horaoen.sailor.web.model.cms.UserDo;
+import com.horaoen.sailor.web.service.cms.GroupService;
+import com.horaoen.sailor.web.service.cms.UserService;
 import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;

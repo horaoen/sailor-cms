@@ -5,7 +5,7 @@ import com.horaoen.sailor.autoconfigure.bean.Code;
 import com.horaoen.sailor.autoconfigure.exception.HttpException;
 import com.horaoen.sailor.autoconfigure.util.RequestUtil;
 import com.horaoen.sailor.web.common.configuration.CodeMessageConfiguration;
-import com.horaoen.sailor.web.vo.UnifyResponseVo;
+import com.horaoen.sailor.web.vo.message.UnifyResponseVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Value;

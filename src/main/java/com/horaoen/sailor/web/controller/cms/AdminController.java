@@ -1,15 +1,17 @@
 package com.horaoen.sailor.web.controller.cms;
 
 import com.github.pagehelper.PageHelper;
-import com.horaoen.sailor.web.bo.ModulePermissionBo;
-import com.horaoen.sailor.web.bo.ModulePermissionForSelectBo;
+import com.horaoen.sailor.web.bo.cms.ModulePermissionBo;
+import com.horaoen.sailor.web.bo.cms.ModulePermissionForSelectBo;
 import com.horaoen.sailor.web.common.util.PageUtil;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
-import com.horaoen.sailor.web.service.AdminService;
-import com.horaoen.sailor.web.vo.*;
+import com.horaoen.sailor.web.service.cms.AdminService;
+import com.horaoen.sailor.web.vo.cms.GroupVo;
+import com.horaoen.sailor.web.vo.cms.UserInfoVo;
+import com.horaoen.sailor.web.vo.message.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/cms/admin")
-@Tag(name = "admin", description = "管理员")
+@Tag(name = "管理员接口")
 public class AdminController {
     private final AdminService adminService;
 

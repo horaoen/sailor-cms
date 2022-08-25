@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.horaoen.sailor.web.dao.cms.UserIdentityDao">
+
+    <update id="updatePasswordById">
+        UPDATE
+            sailor_user_identity
+        SET
+            credential = #{credential}
+        WHERE
+            user_id = #{userId}
+    </update>
+    <update id="deleteById">
+        UPDATE
+            sailor_user_identity
+        SET
+            delete_time = now()
+        WHERE
+            user_id = #{userId}
+    </update>
+    <select id="selectUserIdentityByUserId" resultType="com.horaoen.sailor.web.model.cms.UserIdentityDo">
+        SELECT *
+        FROM
+            sailor_user_identity
+        WHERE
+            user_id = #{userId}
+            AND delete_time IS NULL
+    </select>
+</mapper>

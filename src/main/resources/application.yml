@@ -9,7 +9,7 @@ spring:
     resources:
       add-mappings: false
 mybatis:
-  mapper-locations: mapper/*Mapper.xml
+  mapper-locations: mapper/*/*Mapper.xml
   type-aliases-package: com.horaoen.sailor.web.model
   config-location: classpath:config/mybatis-config.xml
 

@@ -1,14 +1,11 @@
 package com.horaoen.sailor.web.common.listener;
 
 import com.horaoen.sailor.autoconfigure.bean.PermissionMetaCollector;
-import com.horaoen.sailor.web.service.PermissionService;
+import com.horaoen.sailor.web.service.cms.PermissionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author pedro@TaleLin

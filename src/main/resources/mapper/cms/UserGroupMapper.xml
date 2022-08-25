@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.horaoen.sailor.web.dao.cms.UserGroupDao">
+
+    <select id="selectUserByGroupId" resultType="com.horaoen.sailor.web.model.cms.UserGroupDo">
+        SELECT *
+        FROM sailor_user_group
+        WHERE group_id = #{groupId}
+          AND delete_time IS NULL
+    </select>
+    
+</mapper>

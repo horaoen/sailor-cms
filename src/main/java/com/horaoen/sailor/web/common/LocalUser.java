@@ -1,6 +1,6 @@
 package com.horaoen.sailor.web.common;
 
-import com.horaoen.sailor.web.model.UserDo;
+import com.horaoen.sailor.web.model.cms.UserDo;
 
 /**
  * 线程安全的当前登录用户，如果用户为登录，则得到 null
