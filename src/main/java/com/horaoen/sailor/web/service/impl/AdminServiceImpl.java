@@ -1,7 +1,9 @@
 package com.horaoen.sailor.web.service.impl;
 
+import cn.hutool.core.lang.Pair;
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
+import com.horaoen.sailor.web.bo.ModulePermissionBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.dao.GroupPermissionDao;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
@@ -17,10 +19,7 @@ import com.horaoen.sailor.web.vo.UserInfoVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -141,7 +140,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Map<String, List<PermissionForSelectVo>> getGroup(Long id) {
+    public List<ModulePermissionBo> getGroup(Long id) {
         throwGroupNotExistById(id);
         //结构化的系统权限
         Map<String, List<PermissionVo>> allStructuralPermissions = getAllStructuralPermissions();
@@ -163,8 +162,9 @@ public class AdminServiceImpl implements AdminService {
             });
             allStructuralPermissionsForSelect.put(module, permissionForSelectVos);
         });
-        
-        return allStructuralPermissionsForSelect;
+        List<ModulePermissionBo> modulePermissionBos = new ArrayList<>();
+        allStructuralPermissionsForSelect.forEach((module, permissionForSelectVos) -> modulePermissionBos.add(new ModulePermissionBo(UUID.randomUUID(), module, permissionForSelectVos)));
+        return modulePermissionBos;
     }
 
     @Override

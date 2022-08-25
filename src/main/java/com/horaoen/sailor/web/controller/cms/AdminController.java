@@ -1,6 +1,8 @@
 package com.horaoen.sailor.web.controller.cms;
 
 import com.github.pagehelper.PageHelper;
+import com.horaoen.sailor.core.annotation.LoginRequired;
+import com.horaoen.sailor.web.bo.ModulePermissionBo;
 import com.horaoen.sailor.web.common.util.PageUtil;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
@@ -106,8 +108,8 @@ public class AdminController {
 
     @GetMapping("/group/{id}")
     @Operation(summary = "角色管理-获取角色信息及权限")
-    public UnifyResponseVo<Map<String, List<PermissionForSelectVo>>> getGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
-        Map<String, List<PermissionForSelectVo>> group = adminService.getGroup(id);
+    public UnifyResponseVo<List<ModulePermissionBo>> getGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
+        List<ModulePermissionBo> group = adminService.getGroup(id);
         return new UnifyResponseVo<>(group);
     }
 
@@ -117,5 +119,16 @@ public class AdminController {
         adminService.createGroup(dto);
         return new CreatedVo<>(15);
     }
+    
+//    @PutMapping("/group/{id}")
+//    @Operation(summary = "角色管理-修改角色")
+//    public UpdatedVo<?> updateGroup(@PathVariable @Positive(message = "{id.positive}") Long id, 
+//                                    @RequestBody @Validated UpdateGroupDto dto) {
+//        boolean res = adminService.updateGroup(id, dto);
+//        if(!res) {
+//            return new UpdatedVo<>(10200);
+//        }
+//        return new UpdatedVo<>(7);
+//    }
     
 }
