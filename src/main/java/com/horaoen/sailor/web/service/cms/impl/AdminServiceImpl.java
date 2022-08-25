@@ -209,7 +209,7 @@ public class AdminServiceImpl implements AdminService {
         if(!permissions.isEmpty()) {
             permissions.forEach(permissionId -> groupPermissionDao.insert(id, permissionId));
         } 
-        if(update && delete) {
+        if(!(update && delete)) {
             throw new HttpException(10203);
         } 
         return true;
