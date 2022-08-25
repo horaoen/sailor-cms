@@ -4,6 +4,7 @@ import cn.hutool.core.lang.Pair;
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
 import com.horaoen.sailor.web.bo.ModulePermissionBo;
+import com.horaoen.sailor.web.bo.ModulePermissionForSelectBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.dao.GroupPermissionDao;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
@@ -55,7 +56,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Map<String, List<PermissionVo>> getAllStructuralPermissions() {
+    public List<ModulePermissionBo> getAllStructuralPermissions() {
         List<PermissionVo> allPermissions = getAllMountedPermissions();
         Map<String, List<PermissionVo>> permissions = new HashMap<>(0);
         allPermissions.forEach(permissionVo -> {
@@ -67,7 +68,13 @@ public class AdminServiceImpl implements AdminService {
                 permissions.put(permissionVo.getModule(), permissionArray);
             }
         });
-        return permissions;
+        
+        List<ModulePermissionBo> result = new ArrayList<>(0);
+        permissions.forEach((module, permissionArray) -> {
+            ModulePermissionBo modulePermissionBo = new ModulePermissionBo(UUID.randomUUID(), module, permissionArray);
+            result.add(modulePermissionBo);
+        });
+        return result;
     }
     
 
@@ -122,7 +129,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<GroupVo> getAllGroups() {
-        return groupService.getAllGroups();
+        List<GroupVo> allGroups = groupService.getAllGroups();
+        return allGroups;
     }
 
     @Override
@@ -140,31 +148,29 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public List<ModulePermissionBo> getGroup(Long id) {
+    public List<ModulePermissionForSelectBo> getGroup(Long id) {
         throwGroupNotExistById(id);
         //结构化的系统权限
-        Map<String, List<PermissionVo>> allStructuralPermissions = getAllStructuralPermissions();
+        List<ModulePermissionBo> allStructuralPermissions = getAllStructuralPermissions();
         
         //用于返回的供选择的用户组权限
-        Map<String, List<PermissionForSelectVo>> allStructuralPermissionsForSelect = new HashMap<>(0);
+        List<ModulePermissionForSelectBo> result = new ArrayList<>(0);
         
         List<PermissionVo> permissions = groupService.getGroupAndPermissions(id).getPermissions();
         //遍历每一个module
-        allStructuralPermissions.forEach((module, permissionVos) -> {
+        allStructuralPermissions.forEach(modulePermissionBo -> {
             //替换每一个module的list
             List<PermissionForSelectVo> permissionForSelectVos = new ArrayList<>(0);
             //遍历module下的每一个permission
-            permissionVos.forEach(permissionVo -> {
+            modulePermissionBo.getPermissions().forEach(permissionVo -> {
                 //如果当前permission在permissions中存在，则设置为true，否则设置为false
                 boolean exist = permissions.stream().anyMatch(it -> it.getId().equals(permissionVo.getId()));
                 PermissionForSelectVo permissionForSelectVo = new PermissionForSelectVo(permissionVo, exist);
                 permissionForSelectVos.add(permissionForSelectVo);
             });
-            allStructuralPermissionsForSelect.put(module, permissionForSelectVos);
+            result.add(new ModulePermissionForSelectBo(modulePermissionBo, permissionForSelectVos));
         });
-        List<ModulePermissionBo> modulePermissionBos = new ArrayList<>();
-        allStructuralPermissionsForSelect.forEach((module, permissionForSelectVos) -> modulePermissionBos.add(new ModulePermissionBo(UUID.randomUUID(), module, permissionForSelectVos)));
-        return modulePermissionBos;
+        return result;
     }
 
     @Override

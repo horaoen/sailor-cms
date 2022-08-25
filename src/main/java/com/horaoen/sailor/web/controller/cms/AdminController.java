@@ -3,6 +3,7 @@ package com.horaoen.sailor.web.controller.cms;
 import com.github.pagehelper.PageHelper;
 import com.horaoen.sailor.core.annotation.LoginRequired;
 import com.horaoen.sailor.web.bo.ModulePermissionBo;
+import com.horaoen.sailor.web.bo.ModulePermissionForSelectBo;
 import com.horaoen.sailor.web.common.util.PageUtil;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
@@ -36,8 +37,8 @@ public class AdminController {
 
     @GetMapping("/permission")
     @Operation(summary = "角色管理-获取全部权限")
-    public UnifyResponseVo<Map<String, List<PermissionVo>>> getAllPermissions() {
-        Map<String, List<PermissionVo>> result = adminService.getAllStructuralPermissions();
+    public UnifyResponseVo<List<ModulePermissionBo>> getAllPermissions() {
+        List<ModulePermissionBo> result = adminService.getAllStructuralPermissions();
         return new UnifyResponseVo<>(result);
     }
     
@@ -108,8 +109,8 @@ public class AdminController {
 
     @GetMapping("/group/{id}")
     @Operation(summary = "角色管理-获取角色信息及权限")
-    public UnifyResponseVo<List<ModulePermissionBo>> getGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
-        List<ModulePermissionBo> group = adminService.getGroup(id);
+    public UnifyResponseVo<List<ModulePermissionForSelectBo>> getGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
+        List<ModulePermissionForSelectBo> group = adminService.getGroup(id);
         return new UnifyResponseVo<>(group);
     }
 

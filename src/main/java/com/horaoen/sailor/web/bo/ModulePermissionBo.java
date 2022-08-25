@@ -1,6 +1,6 @@
 package com.horaoen.sailor.web.bo;
 
-import com.horaoen.sailor.web.vo.PermissionForSelectVo;
+import com.horaoen.sailor.web.vo.PermissionVo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,5 +17,5 @@ import java.util.UUID;
 public class ModulePermissionBo {
     private UUID id;
     private String name;
-    private List<PermissionForSelectVo> permissions;
+    private List<PermissionVo> permissions;
 }

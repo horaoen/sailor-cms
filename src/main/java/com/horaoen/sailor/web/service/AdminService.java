@@ -2,6 +2,7 @@ package com.horaoen.sailor.web.service;
 
 import com.horaoen.sailor.web.bo.GroupPermissionBo;
 import com.horaoen.sailor.web.bo.ModulePermissionBo;
+import com.horaoen.sailor.web.bo.ModulePermissionForSelectBo;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
@@ -32,7 +33,7 @@ public interface AdminService {
      *
      * @return 权限数据
      */
-    Map<String, List<PermissionVo>> getAllStructuralPermissions();
+    List<ModulePermissionBo> getAllStructuralPermissions();
 
     /**
      * 获取全部权限列表
@@ -90,7 +91,7 @@ public interface AdminService {
      * @param id 分组id
      * @return 分组数据
      */
-    List<ModulePermissionBo> getGroup(Long id);
+    List<ModulePermissionForSelectBo> getGroup(Long id);
 
     /**
      * 更新分组数据
