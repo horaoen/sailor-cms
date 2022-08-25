@@ -13,7 +13,7 @@
     <update id="deleteGroup">
         UPDATE sailor_group
         SET
-            is_deleted = now()
+            delete_time = now()
         WHERE
             id = #{id}
     </update>
