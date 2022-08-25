@@ -22,8 +22,8 @@
     <update id="updateGroup">
         UPDATE sailor_group
         SET
-            name = #{groupName},
-            info = #{groupInfo},
+            name = #{name},
+            info = #{info},
             update_time = now()
         WHERE
             id = #{id}

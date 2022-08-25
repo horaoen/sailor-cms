@@ -196,7 +196,10 @@ public class AdminServiceImpl implements AdminService {
     @Transactional(rollbackFor = Exception.class)
     public boolean updateGroup(Long id, UpdateGroupDto dto) {
         throwGroupNotExistById(id);
-        throwGroupNameExist(dto.getName());
+        GroupVo groupById = groupService.getGroupById(id);
+        if(!groupById.getName().equals(dto.getName())) {
+            throwGroupNameExist(dto.getName());
+        }
         GroupDo groupDo = new GroupDo();
         BeanUtil.copyProperties(dto, groupDo);
         groupDo.setId(id);

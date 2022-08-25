@@ -107,7 +107,7 @@ public class AdminController {
     }
 
     @GetMapping("/group/{id}")
-    @Operation(summary = "角色管理-获取角色信息及权限")
+    @Operation(summary = "角色管理-获取角色权限信息")
     public UnifyResponseVo<List<ModulePermissionForSelectBo>> getGroup(@PathVariable @Positive(message = "{id.positive}") Long id) {
         List<ModulePermissionForSelectBo> group = adminService.getGroup(id);
         return new UnifyResponseVo<>(group);
