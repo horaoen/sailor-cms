@@ -17,4 +17,10 @@
             WHERE gp.group_id = #{id}
         ) AND p.delete_time IS NULL
     </select>
+    <select id="selectPermissionById" resultType="com.horaoen.sailor.web.model.PermissionDo">
+        SELECT *
+        FROM sailor_permission AS p
+        WHERE p.id = #{id}
+            AND p.delete_time IS NULL
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.horaoen.sailor.web.service;
 
 import com.horaoen.sailor.web.bo.GroupPermissionBo;
+import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.model.GroupDo;
@@ -89,4 +90,11 @@ public interface AdminService {
      * @return 分组数据
      */
     Map<String, List<PermissionForSelectVo>> getGroup(Long id);
+
+    /**
+     * 更新分组数据
+     * @param dto 分组数据
+     * @return 是否更新成功
+     */
+    boolean createGroup(NewGroupDto dto);
 }

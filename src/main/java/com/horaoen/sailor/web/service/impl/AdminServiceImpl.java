@@ -2,10 +2,12 @@ package com.horaoen.sailor.web.service.impl;
 
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
-import com.horaoen.sailor.web.bo.GroupPermissionBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
+import com.horaoen.sailor.web.dao.GroupPermissionDao;
+import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
+import com.horaoen.sailor.web.model.GroupDo;
 import com.horaoen.sailor.web.model.UserDo;
 import com.horaoen.sailor.web.service.*;
 import com.horaoen.sailor.web.vo.GroupVo;
@@ -31,15 +33,17 @@ public class AdminServiceImpl implements AdminService {
     private final GroupService groupService;
     private final PermissionService permissionService;
     private final UserIdentityService userIdentityService;
+    private final GroupPermissionDao groupPermissionDao;
 
-    public AdminServiceImpl(UserService userService, 
-                            GroupService groupService, 
-                            PermissionService permissionService, 
-                            UserIdentityService userIdentityService) {
+    public AdminServiceImpl(UserService userService,
+                            GroupService groupService,
+                            PermissionService permissionService,
+                            UserIdentityService userIdentityService, GroupPermissionDao groupPermissionDao) {
         this.userService = userService;
         this.groupService = groupService;
         this.permissionService = permissionService;
         this.userIdentityService = userIdentityService;
+        this.groupPermissionDao = groupPermissionDao;
     }
 
     @Override
@@ -163,10 +167,40 @@ public class AdminServiceImpl implements AdminService {
         return allStructuralPermissionsForSelect;
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean createGroup(NewGroupDto dto) {
+        throwGroupNameExist(dto.getName());
+        GroupDo groupDo = GroupDo.builder().name(dto.getName()).info(dto.getInfo()).build();
+        Long groupId = groupService.add(groupDo);
+        //检验permissions是否存在
+        dto.getPermissions().forEach(this::throwPermisssionNotExistById);
+        if(dto.getPermissions() != null && !dto.getPermissions().isEmpty()) {
+            dto.getPermissions().forEach(permissionId -> groupPermissionDao.insert(groupId, permissionId));
+        } else {
+            return false;
+        }
+        return true;
+    }
+
+    private void throwGroupNameExist(String name) {
+        boolean exist = groupService.checkGroupExistByName(name);
+        if (exist) {
+            throw new ForbiddenException(10072);
+        }
+    }
+
     private void throwGroupNotExistById(Long id) {
         boolean exist = groupService.checkGroupExistById(id);
         if (!exist) {
             throw new NotFoundException(10024);
+        }
+    }
+    
+    private void throwPermisssionNotExistById(Long id) {
+        boolean exist = permissionService.checkPermissionExistById(id);
+        if (!exist) {
+            throw new NotFoundException(10201);
         }
     }
 

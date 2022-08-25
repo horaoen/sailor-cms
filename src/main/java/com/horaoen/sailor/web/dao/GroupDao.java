@@ -4,6 +4,7 @@ import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.model.GroupDo;
 import com.horaoen.sailor.web.vo.GroupVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -47,4 +48,19 @@ public interface GroupDao {
      * @return 删除结果
      */
     int deleteGroup(Long id);
+
+    /**
+     * 插入分组信息
+     * @param groupName 组名称
+     * @param groupInfo 分组描述
+     * @return 插入结果
+     */
+    Long insertGroup(@Param("groupName") String groupName, @Param("groupInfo") String groupInfo);
+
+    /**
+     * 通过分组名获取分组
+     * @param name 分组名      
+     * @return 分组信息
+     */
+    List<GroupDo> selectGroupByName(String name);
 }

@@ -25,4 +25,11 @@ public interface PermissionService {
      * @return 权限集合
      */
     List<PermissionVo> getPermissionByGroupId(Long id);
+
+    /**
+     * 根据id检查权限是否存在
+     * @param id 权限id
+     * @return 是否存在
+     */
+    boolean checkPermissionExistById(Long id);
 }

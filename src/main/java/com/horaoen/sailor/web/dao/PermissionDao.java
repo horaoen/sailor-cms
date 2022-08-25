@@ -10,7 +10,8 @@ import java.util.List;
  */
 @Mapper
 public interface PermissionDao {
-    /**获取
+    /**
+     * 获取
      * @param mounted 过滤条件
      * @return
      */
@@ -22,4 +23,12 @@ public interface PermissionDao {
      * @return 权限集合
      */
     List<PermissionDo> selectPermissionsByGroupId(Long id);
+
+
+    /**
+     * 根据id获取权限
+     * @param id 权限id
+     * @return 权限
+     */
+    PermissionDo selectPermissionById(Long id);
 }

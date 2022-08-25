@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.horaoen.sailor.web.dao.GroupDao">
+    <insert id="insertGroup" useGeneratedKeys="true">
+        INSERT INTO sailor_group (
+            name,
+            info
+        ) VALUES (
+            #{groupName},
+            #{groupInfo}
+        )
+    </insert>
     <update id="deleteGroup">
         UPDATE sailor_group
         SET
@@ -45,6 +54,12 @@
         SELECT *
         FROM sailor_group
         WHERE id = #{id}
+          AND delete_time IS NULL
+    </select>
+    <select id="selectGroupByName" resultType="com.horaoen.sailor.web.model.GroupDo">
+        SELECT *
+        FROM sailor_group
+        WHERE name = #{name}
           AND delete_time IS NULL
     </select>
 </mapper>

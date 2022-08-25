@@ -80,4 +80,18 @@ public interface GroupService {
      * @return 分组及权限
      */
     GroupPermissionBo getGroupAndPermissions(Long id);
+
+    /**
+     * 通过分组名称检查分组是否存在
+     * @param name 分组名称
+     * @return 是否存在
+     */
+    boolean checkGroupExistByName(String name);
+
+    /**
+     * 创建分组
+     * @param groupDo 分组信息
+     * @return 是否创建成功
+     */
+    Long add(GroupDo groupDo);
 }

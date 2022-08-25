@@ -94,6 +94,16 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public boolean checkGroupExistByName(String name) {
+        return groupDao.selectGroupByName(name) != null;
+    }
+
+    @Override
+    public Long add(GroupDo groupDo) {
+        return groupDao.insertGroup(groupDo.getName(), groupDo.getInfo());
+    }
+
+    @Override
     public List<GroupVo> getUserGroupsByUserId(Long userId) {
         List<GroupDo> groupDos = groupDao.selectUserGroupsByUserId(userId);
         return groupDos.stream().map(groupDo -> {

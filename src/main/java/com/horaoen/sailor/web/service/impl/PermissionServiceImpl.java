@@ -48,4 +48,9 @@ public class PermissionServiceImpl implements PermissionService {
         }).collect(Collectors.toList());
         return permissionVos;
     }
+
+    @Override
+    public boolean checkPermissionExistById(Long id) {
+        return permissionDao.selectPermissionById(id) != null;
+    }
 }

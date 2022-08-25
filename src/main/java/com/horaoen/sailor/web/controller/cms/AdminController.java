@@ -2,6 +2,7 @@ package com.horaoen.sailor.web.controller.cms;
 
 import com.github.pagehelper.PageHelper;
 import com.horaoen.sailor.web.common.util.PageUtil;
+import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
 import com.horaoen.sailor.web.service.AdminService;
@@ -109,6 +110,12 @@ public class AdminController {
         Map<String, List<PermissionForSelectVo>> group = adminService.getGroup(id);
         return new UnifyResponseVo<>(group);
     }
-    
+
+    @PostMapping("/group")
+    @Operation(summary = "角色管理-新增角色")
+    public CreatedVo<?> createGroup(@RequestBody @Validated NewGroupDto dto) {
+        adminService.createGroup(dto);
+        return new CreatedVo<>(15);
+    }
     
 }
