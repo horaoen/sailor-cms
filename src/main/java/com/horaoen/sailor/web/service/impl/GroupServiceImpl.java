@@ -95,7 +95,8 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public boolean checkGroupExistByName(String name) {
-        return groupDao.selectGroupByName(name) != null;
+        List<GroupDo> groupDos = groupDao.selectGroupByName(name);
+        return groupDos.size() > 0;
     }
 
     @Override
