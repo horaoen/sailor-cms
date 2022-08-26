@@ -3,6 +3,7 @@ package com.horaoen.sailor.web.dao.scc;
 import com.horaoen.sailor.web.model.scc.OrgDo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -49,4 +50,10 @@ public interface OrgDao {
      * @param orgDo 部门信息
      */
     void updateOrg(OrgDo orgDo);
+
+    /**
+     * 删除部门
+     * @param ids 部门id
+     */
+    void deleteByIds(ArrayList<Long> ids);
 }

@@ -45,4 +45,10 @@ public interface OrgService {
      * @param dto 部门信息
      */
     void updateOrg(Long orgId, OrgDto dto);
+
+    /**
+     * 删除部门
+     * @param orgIds 部门id
+     */
+    void deleteOrg(List<Long> orgIds);
 }

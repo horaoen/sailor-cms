@@ -5,6 +5,7 @@ import com.horaoen.sailor.web.dto.org.OrgDto;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.service.scc.OrgService;
 import com.horaoen.sailor.web.vo.message.CreatedVo;
+import com.horaoen.sailor.web.vo.message.DeletedVo;
 import com.horaoen.sailor.web.vo.message.UnifyResponseVo;
 import com.horaoen.sailor.web.vo.message.UpdatedVo;
 import com.horaoen.sailor.web.vo.scc.OrgVo;
@@ -14,7 +15,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author horaoen
@@ -62,5 +66,13 @@ public class OrgController {
                                   @RequestBody @Validated OrgDto dto) {
         orgService.updateOrg(orgId, dto);
         return new UpdatedVo<>(18);
+    }
+    
+    @DeleteMapping()
+    @Operation(summary = "根据organIds批量删除部门", description = "organIds为逗号分隔的字符串")
+    public DeletedVo<?> deleteOrg(@RequestParam String organIds) {
+        List<Long> ids = Arrays.stream(organIds.split(",")).map(Long::parseLong).collect(Collectors.toList());
+        orgService.deleteOrg(ids); 
+        return new DeletedVo<>(19);
     }
 }

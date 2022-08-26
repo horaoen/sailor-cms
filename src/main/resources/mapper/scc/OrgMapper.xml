@@ -27,6 +27,17 @@
         WHERE 
             id = #{id}
     </update>
+    
+    <update id="deleteByIds">
+        UPDATE 
+            sailor_org
+        SET delete_time = now()
+        WHERE 
+            id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </update>
 
     <select id="getAllRegion" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
         SELECT *

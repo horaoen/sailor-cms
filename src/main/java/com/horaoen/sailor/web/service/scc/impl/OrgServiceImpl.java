@@ -11,7 +11,7 @@ import com.horaoen.sailor.web.vo.scc.OrgVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -75,7 +75,34 @@ public class OrgServiceImpl implements OrgService {
         orgDo.setOrderNum(dto.getOrderNum());
         orgDao.updateOrg(orgDo);
     }
-    
+
+    @Override
+    public void deleteOrg(List<Long> ids) {
+        ids.forEach(this::throwOrgNotExistById);
+
+        List<OrgDo> organList = orgDao.getAllRegion();
+        Set<Long> toDeleteIds = new HashSet<>(ids);
+        Set<OrgDo> organs = organList.stream()
+                .filter(organItem -> ids.contains(organItem.getId()))
+                .collect(Collectors.toSet());
+        for (OrgDo organ: organs) {
+            toDeleteIds.addAll(getAllSubOrgansId(organ, organList));
+        }
+        orgDao.deleteByIds(new ArrayList<>(toDeleteIds));
+    }
+
+    private Set<Long> getAllSubOrgansId(OrgDo organ, List<OrgDo> organList) {
+        Set<Long> subOrgansId = new HashSet<>();
+        subOrgansId.add(organ.getId());
+        List<OrgDo> subOrgans = organList.stream()
+                .filter(organItem -> organ.getId().equals(organItem.getParentId()))
+                .collect(Collectors.toList());
+        for (OrgDo subOrgan: subOrgans) {
+            subOrgansId.addAll(getAllSubOrgansId(subOrgan, organList));
+        }
+        return subOrgansId;
+    }
+
     private void throwOrgNotExistById(Long orgId) {
         OrgDo orgDo = orgDao.selectOrgById(orgId);
         if(orgDo == null) {
