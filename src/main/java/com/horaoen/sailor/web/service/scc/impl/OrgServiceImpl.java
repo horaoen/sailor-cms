@@ -3,6 +3,7 @@ package com.horaoen.sailor.web.service.scc.impl;
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
 import com.horaoen.sailor.web.dao.scc.OrgDao;
+import com.horaoen.sailor.web.dto.org.OrgDto;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.model.scc.OrgDo;
 import com.horaoen.sailor.web.service.scc.OrgService;
@@ -51,6 +52,25 @@ public class OrgServiceImpl implements OrgService {
         OrgVo orgVo = new OrgVo();
         BeanUtils.copyProperties(orgDo, orgVo);
         return orgVo;
+    }
+
+    @Override
+    public Long addSubOrg(Long parentId, OrgDto dto) {
+        throwOrgNameExistException(parentId, dto.getOrgName());
+        OrgDo orgDo = new OrgDo();
+        BeanUtils.copyProperties(dto, orgDo);
+        orgDo.setParentId(parentId);
+        orgDo.setAncestors(getAncestors(parentId, orgDo.getOrgName()));
+        orgDao.addSubOrg(orgDo);
+        return orgDo.getId();
+    }
+    
+    private String getAncestors(Long parentId, String orgName) {
+        OrgDo orgDo = orgDao.selectOrgById(parentId);
+        if (orgDo == null) {
+            return orgName;
+        }
+        return orgDo.getAncestors() + "-" + orgName;
     }
 
     private OrgNodeBo convertToOrganNodeBo(OrgDo organ, List<OrgDo> organList) {

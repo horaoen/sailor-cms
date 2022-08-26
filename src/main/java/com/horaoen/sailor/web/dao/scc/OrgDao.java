@@ -37,4 +37,10 @@ public interface OrgDao {
      * @return 部门信息
      */
     OrgDo selectByParentIdAndOrgName(Long parentId, String orgName);
+
+    /**
+     * 根据上级部门id和部门名称获取部门信息
+     * @param orgDo 部门信息
+     */
+    void addSubOrg(OrgDo orgDo);
 }

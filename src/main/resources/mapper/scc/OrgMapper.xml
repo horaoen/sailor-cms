@@ -8,6 +8,14 @@
         VALUES 
         (#{orgName}, #{parentId}, #{ancestors}, #{orderNum})
     </insert>
+    
+    <insert id="addSubOrg" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO 
+            sailor_org
+        (org_name, parent_id, ancestors, order_num)
+        VALUES 
+        (#{orgName}, #{parentId}, #{ancestors}, #{orderNum})
+    </insert>
 
     <select id="getAllRegion" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
         SELECT *

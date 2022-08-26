@@ -1,6 +1,7 @@
 package com.horaoen.sailor.web.service.scc;
 
 import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
+import com.horaoen.sailor.web.dto.org.OrgDto;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.vo.scc.OrgVo;
 
@@ -19,7 +20,7 @@ public interface OrgService {
     /**
      * 创建一级部门
      * @param dto 部门信息
-     * @return 是否创建成功k
+     * @return 部门id
      */
     Long addTopOrg(TopOrgDto dto);
 
@@ -29,4 +30,12 @@ public interface OrgService {
      * @return 部门信息
      */
     OrgVo getOrgByOrgId(Long orgId);
+
+    /**
+     * 根据parentId创建子部门
+     * @param parentId 父部门id
+     * @param dto 部门信息
+     * @return 部门id
+     */
+    Long addSubOrg(Long parentId, OrgDto dto);
 }
