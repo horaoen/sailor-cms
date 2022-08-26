@@ -179,11 +179,11 @@ public class AdminServiceImpl implements AdminService {
     public boolean createGroup(NewGroupDto dto) {
         throwGroupNameExist(dto.getName());
         GroupDo groupDo = GroupDo.builder().name(dto.getName()).info(dto.getInfo()).build();
-        Long groupId = groupService.add(groupDo);
+        groupService.add(groupDo);
         //检验permissions是否存在
         dto.getPermissions().forEach(this::throwPermisssionNotExistById);
         if(dto.getPermissions() != null && !dto.getPermissions().isEmpty()) {
-            dto.getPermissions().forEach(permissionId -> groupPermissionDao.insert(groupId, permissionId));
+            dto.getPermissions().forEach(permissionId -> groupPermissionDao.insert(groupDo.getId(), permissionId));
         } else {
             return false;
         }
