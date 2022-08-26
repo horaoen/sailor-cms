@@ -54,7 +54,7 @@ public interface GroupDao {
      * @param groupInfo 分组描述
      * @return 插入结果
      */
-    Long insertGroup(@Param("groupName") String groupName, @Param("groupInfo") String groupInfo);
+    Long insertGroup(GroupDo groupDo);
 
     /**
      * 通过分组名获取分组

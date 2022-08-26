@@ -6,8 +6,8 @@
             name,
             info
         ) VALUES (
-            #{groupName},
-            #{groupInfo}
+            #{name},
+            #{info}
         )
     </insert>
     

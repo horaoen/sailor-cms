@@ -101,7 +101,7 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public Long add(GroupDo groupDo) {
-        return groupDao.insertGroup(groupDo.getName(), groupDo.getInfo());
+        return groupDao.insertGroup(groupDo);
     }
 
     @Override
