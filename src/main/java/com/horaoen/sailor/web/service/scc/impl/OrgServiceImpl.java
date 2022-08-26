@@ -2,9 +2,9 @@ package com.horaoen.sailor.web.service.scc.impl;
 
 import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
 import com.horaoen.sailor.web.dao.scc.OrgDao;
+import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.model.scc.OrgDo;
 import com.horaoen.sailor.web.service.scc.OrgService;
-import com.horaoen.sailor.web.vo.scc.OrgVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +29,11 @@ public class OrgServiceImpl implements OrgService {
                 .filter(org -> org.getParentId() == 1)
                 .map(org -> convertToOrganNodeBo(org, orgList)).collect(Collectors.toList());
         return orgNodeList;
+    }
+
+    @Override
+    public boolean addTopOrg(TopOrgDto dto) {
+        return false;
     }
 
     private OrgNodeBo convertToOrganNodeBo(OrgDo organ, List<OrgDo> organList) {

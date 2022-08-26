@@ -2,7 +2,6 @@ package com.horaoen.sailor.web.service.cms.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
-import com.horaoen.sailor.autoconfigure.exception.HttpException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
 import com.horaoen.sailor.web.bo.cms.ModulePermissionBo;
 import com.horaoen.sailor.web.bo.cms.ModulePermissionForSelectBo;
@@ -204,13 +203,10 @@ public class AdminServiceImpl implements AdminService {
         groupDo.setId(id);
         List<Long> permissions = dto.getPermissions();
         permissions.forEach(this::throwPermisssionNotExistById);
-        boolean update = groupService.update(groupDo);
-        boolean delete = groupPermissionDao.deleteByGroupId(id) > 0;
+        groupService.update(groupDo);
+        groupPermissionDao.deleteByGroupId(id);
         if(!permissions.isEmpty()) {
             permissions.forEach(permissionId -> groupPermissionDao.insert(id, permissionId));
-        } 
-        if(!(update && delete)) {
-            throw new HttpException(10203);
         } 
         return true;
     }

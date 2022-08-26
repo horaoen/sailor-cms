@@ -28,7 +28,7 @@ public class UserController {
     private final DoubleJWT jwt;
     private final UserIdentityService userIdentityService;
     private final AuthorizeInterceptor authorizeInterceptor;
-    
+
     public UserController(UserService userService,
                           DoubleJWT jwt,
                           UserIdentityService userIdentityService, AuthorizeInterceptor authorizeInterceptor) {
@@ -37,7 +37,7 @@ public class UserController {
         this.userIdentityService = userIdentityService;
         this.authorizeInterceptor = authorizeInterceptor;
     }
-    
+
     @PostMapping("/login")
     @Operation(description = "用户登陆")
     public UnifyResponseVo<Tokens> login(@RequestBody @Validated LoginDto validator) {
@@ -52,10 +52,10 @@ public class UserController {
         if (!valid) {
             throw new ParameterException(10031);
         }
-        
+
         return new UnifyResponseVo<>(jwt.generateTokens(user.getId()));
     }
-    
+
     @GetMapping("/refresh")
     @Operation(summary = "刷新token")
     @RefreshRequired
@@ -63,10 +63,6 @@ public class UserController {
         UserDo user = LocalUser.getLocalUser();
         return jwt.generateTokens(user.getId());
     }
-    
-    
-    
-    
-    
-    
+
+
 }
