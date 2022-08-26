@@ -6,6 +6,7 @@ import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.service.scc.OrgService;
 import com.horaoen.sailor.web.vo.message.CreatedVo;
 import com.horaoen.sailor.web.vo.message.UnifyResponseVo;
+import com.horaoen.sailor.web.vo.message.UpdatedVo;
 import com.horaoen.sailor.web.vo.scc.OrgVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -13,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -56,7 +56,11 @@ public class OrgController {
         return new CreatedVo<>(17);
     }
     
-    
-    
-    
+    @PutMapping("{orgId}")
+    @Operation(summary = "根据orgId更新部门")
+    public UpdatedVo<?> updateOrg(@PathVariable @Positive(message = "{id.positive}") Long orgId, 
+                                  @RequestBody @Validated OrgDto dto) {
+        orgService.updateOrg(orgId, dto);
+        return new UpdatedVo<>(18);
+    }
 }

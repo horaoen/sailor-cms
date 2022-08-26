@@ -43,4 +43,10 @@ public interface OrgDao {
      * @param orgDo 部门信息
      */
     void addSubOrg(OrgDo orgDo);
+
+    /**
+     * 更新部门信息
+     * @param orgDo 部门信息
+     */
+    void updateOrg(OrgDo orgDo);
 }

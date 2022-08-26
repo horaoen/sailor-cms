@@ -38,4 +38,11 @@ public interface OrgService {
      * @return 部门id
      */
     Long addSubOrg(Long parentId, OrgDto dto);
+
+    /**
+     * 更新部门信息
+     * @param orgId 部门id
+     * @param dto 部门信息
+     */
+    void updateOrg(Long orgId, OrgDto dto);
 }

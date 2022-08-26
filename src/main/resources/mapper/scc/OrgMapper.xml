@@ -16,6 +16,17 @@
         VALUES 
         (#{orgName}, #{parentId}, #{ancestors}, #{orderNum})
     </insert>
+    
+    <update id="updateOrg">
+        UPDATE 
+            sailor_org
+        SET 
+            org_name = #{orgName},
+            ancestors = #{ancestors},
+            order_num = #{orderNum}
+        WHERE 
+            id = #{id}
+    </update>
 
     <select id="getAllRegion" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
         SELECT *

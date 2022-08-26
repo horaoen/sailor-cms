@@ -64,7 +64,25 @@ public class OrgServiceImpl implements OrgService {
         orgDao.addSubOrg(orgDo);
         return orgDo.getId();
     }
+
+    @Override
+    public void updateOrg(Long orgId, OrgDto dto) {
+        throwOrgNotExistById(orgId);
+        OrgDo orgDo = orgDao.selectOrgById(orgId);
+        throwOrgNameExistException(orgDo.getParentId(), dto.getOrgName());
+        orgDo.setOrgName(dto.getOrgName());
+        orgDo.setAncestors(getAncestors(orgDo.getParentId(), dto.getOrgName()));
+        orgDo.setOrderNum(dto.getOrderNum());
+        orgDao.updateOrg(orgDo);
+    }
     
+    private void throwOrgNotExistById(Long orgId) {
+        OrgDo orgDo = orgDao.selectOrgById(orgId);
+        if(orgDo == null) {
+            throw new ForbiddenException("组织id不存在");
+        }
+    }
+
     private String getAncestors(Long parentId, String orgName) {
         OrgDo orgDo = orgDao.selectOrgById(parentId);
         if (orgDo == null) {
