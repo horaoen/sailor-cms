@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TopOrgDto {
-    private String organName;
-    private int orderField = 1;
+    private String orgName;
+    private int orderNum = 1;
 }

@@ -1,10 +1,12 @@
 package com.horaoen.sailor.web.service.scc.impl;
 
+import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
 import com.horaoen.sailor.web.dao.scc.OrgDao;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.model.scc.OrgDo;
 import com.horaoen.sailor.web.service.scc.OrgService;
+import com.horaoen.sailor.web.vo.scc.OrgVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +34,23 @@ public class OrgServiceImpl implements OrgService {
     }
 
     @Override
-    public boolean addTopOrg(TopOrgDto dto) {
-        return false;
+    public Long addTopOrg(TopOrgDto dto) {
+        throwOrgNameExistException(1L, dto.getOrgName());
+        OrgDo orgDo = new OrgDo();
+        BeanUtils.copyProperties(dto, orgDo);
+        orgDo.setParentId(1L);
+        orgDo.setAncestors(dto.getOrgName());
+        orgDao.addTopOrg(orgDo);
+        return orgDo.getId();
+    }
+
+    @Override
+    public OrgVo getOrgByOrgId(Long orgId) {
+        // TODO 检查orgId是否存在
+        OrgDo orgDo = orgDao.selectOrgById(orgId);
+        OrgVo orgVo = new OrgVo();
+        BeanUtils.copyProperties(orgDo, orgVo);
+        return orgVo;
     }
 
     private OrgNodeBo convertToOrganNodeBo(OrgDo organ, List<OrgDo> organList) {
@@ -44,5 +61,12 @@ public class OrgServiceImpl implements OrgService {
                 .map(organItem -> convertToOrganNodeBo(organItem, organList)).collect(Collectors.toList());
         organNode.setChildren(children);
         return organNode;
+    }
+
+    private void throwOrgNameExistException(Long parentId, String orgName) {
+        OrgDo orgDo = orgDao.selectByParentIdAndOrgName(parentId, orgName);
+        if (orgDo != null) {
+            throw new ForbiddenException(10204);
+        }
     }
 }

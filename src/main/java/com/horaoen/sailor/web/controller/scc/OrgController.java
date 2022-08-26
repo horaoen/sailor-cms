@@ -3,14 +3,14 @@ package com.horaoen.sailor.web.controller.scc;
 import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.service.scc.OrgService;
+import com.horaoen.sailor.web.vo.message.CreatedVo;
 import com.horaoen.sailor.web.vo.message.UnifyResponseVo;
+import com.horaoen.sailor.web.vo.scc.OrgVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,12 +33,18 @@ public class OrgController {
         return new UnifyResponseVo<>(orgService.getAllRegion());
     }
     
-//    @PostMapping
-//    @Operation(summary = "创建一级部门")
-//    public UnifyResponseVo<?> addTopOrg(TopOrgDto dto) {
-//        boolean addResult = orgService.addTopOrg(dto);
-//        
-//    }
+    @PostMapping
+    @Operation(summary = "创建一级部门")
+    public CreatedVo<?> addTopOrg(TopOrgDto dto) {
+        orgService.addTopOrg(dto);
+        return new CreatedVo<>(16);
+    }
+    
+    @GetMapping("{orgId}")
+    @Operation(summary = "根据orgId获取子部门")
+    public UnifyResponseVo<OrgVo> getOrgByOrgId(@PathVariable @Positive(message = "{id.positive}") Long orgId) {
+        return new UnifyResponseVo<>(orgService.getOrgByOrgId(orgId));
+    }
     
     
 }
