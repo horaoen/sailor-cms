@@ -3,6 +3,7 @@ package com.horaoen.sailor.web.service.scc.impl;
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
 import com.horaoen.sailor.web.dao.scc.OrgDao;
+import com.horaoen.sailor.web.dao.scc.UserOrgDao;
 import com.horaoen.sailor.web.dto.org.OrgDto;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
 import com.horaoen.sailor.web.model.scc.OrgDo;
@@ -11,7 +12,10 @@ import com.horaoen.sailor.web.vo.scc.OrgVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -20,9 +24,11 @@ import java.util.stream.Collectors;
 @Service
 public class OrgServiceImpl implements OrgService {
     private final OrgDao orgDao;
+    private final UserOrgDao userOrgDao;
 
-    public OrgServiceImpl(OrgDao orgDao) {
+    public OrgServiceImpl(OrgDao orgDao, UserOrgDao userOrgDao) {
         this.orgDao = orgDao;
+        this.userOrgDao = userOrgDao;
     }
 
     @Override
@@ -89,6 +95,24 @@ public class OrgServiceImpl implements OrgService {
             toDeleteIds.addAll(getAllSubOrgansId(organ, organList));
         }
         orgDao.deleteByIds(new ArrayList<>(toDeleteIds));
+    }
+
+    @Override
+    public OrgVo getOrgByUserId(Long userId) {
+        OrgDo orgDo = orgDao.selectOrgByUserId(userId);
+        OrgVo orgVo = new OrgVo();
+        BeanUtils.copyProperties(orgDo, orgVo);
+        return orgVo;
+    }
+
+    @Override
+    public boolean checkOrgExistById(Long orgId) {
+        return orgDao.selectOrgById(orgId) != null;
+    }
+
+    @Override
+    public void addRelation(Long orgId, Long userId) {
+        userOrgDao.insert(orgId, userId);
     }
 
     private Set<Long> getAllSubOrgansId(OrgDo organ, List<OrgDo> organList) {

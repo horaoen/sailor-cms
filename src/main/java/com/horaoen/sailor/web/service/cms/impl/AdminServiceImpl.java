@@ -11,13 +11,16 @@ import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
+import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.model.cms.GroupDo;
 import com.horaoen.sailor.web.model.cms.UserDo;
 import com.horaoen.sailor.web.service.cms.*;
+import com.horaoen.sailor.web.service.scc.OrgService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.PermissionForSelectVo;
 import com.horaoen.sailor.web.vo.cms.PermissionVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
+import com.horaoen.sailor.web.vo.scc.OrgVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,16 +37,18 @@ public class AdminServiceImpl implements AdminService {
     private final GroupService groupService;
     private final PermissionService permissionService;
     private final UserIdentityService userIdentityService;
+    private final OrgService orgService;
     private final GroupPermissionDao groupPermissionDao;
 
     public AdminServiceImpl(UserService userService,
                             GroupService groupService,
                             PermissionService permissionService,
-                            UserIdentityService userIdentityService, GroupPermissionDao groupPermissionDao) {
+                            UserIdentityService userIdentityService, OrgService orgService, GroupPermissionDao groupPermissionDao) {
         this.userService = userService;
         this.groupService = groupService;
         this.permissionService = permissionService;
         this.userIdentityService = userIdentityService;
+        this.orgService = orgService;
         this.groupPermissionDao = groupPermissionDao;
     }
 
@@ -52,7 +57,8 @@ public class AdminServiceImpl implements AdminService {
         List<UserDo> userDos = userService.getUserByGroupId(groupId);
         return userDos.stream().map(userDo -> {
             List<GroupVo> groups = groupService.getUserGroupsByUserId(userDo.getId());
-            return new UserInfoVo(userDo, groups);
+            OrgVo orgVo = orgService.getOrgByUserId(userDo.getId());
+            return new UserInfoVo(userDo, groups.get(0), orgVo);
         }).collect(Collectors.toList());
     }
 
@@ -181,7 +187,7 @@ public class AdminServiceImpl implements AdminService {
         GroupDo groupDo = GroupDo.builder().name(dto.getName()).info(dto.getInfo()).build();
         groupService.add(groupDo);
         //检验permissions是否存在
-        dto.getPermissions().forEach(this::throwPermisssionNotExistById);
+        dto.getPermissions().forEach(this::throwPermissionNotExistById);
         if(dto.getPermissions() != null && !dto.getPermissions().isEmpty()) {
             dto.getPermissions().forEach(permissionId -> groupPermissionDao.insert(groupDo.getId(), permissionId));
         } else {
@@ -202,7 +208,7 @@ public class AdminServiceImpl implements AdminService {
         BeanUtil.copyProperties(dto, groupDo);
         groupDo.setId(id);
         List<Long> permissions = dto.getPermissions();
-        permissions.forEach(this::throwPermisssionNotExistById);
+        permissions.forEach(this::throwPermissionNotExistById);
         groupService.update(groupDo);
         groupPermissionDao.deleteByGroupId(id);
         if(!permissions.isEmpty()) {
@@ -225,12 +231,35 @@ public class AdminServiceImpl implements AdminService {
         }
     }
     
-    private void throwPermisssionNotExistById(Long id) {
+    private void throwPermissionNotExistById(Long id) {
         boolean exist = permissionService.checkPermissionExistById(id);
         if (!exist) {
             throw new NotFoundException(10201);
         }
     }
+    
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void createUser(RegisterDto dto) {
+        throwUserExistByNickname(dto.getUsername());
+        throwOrgNotExistByOrgId(dto.getOrgId());
+        dto.getGroupIds().forEach(this::throwGroupNotExistById);
+        userService.add(dto);
+    }
+
+
+    private void throwOrgNotExistByOrgId(Long orgId) {
+        if(!orgService.checkOrgExistById(orgId)) {
+            throw new ForbiddenException("组织不存在");
+        }
+    }
+
+    private void throwUserExistByNickname(String nickname) {
+        UserInfoVo user = userService.selectByNickname(nickname);
+        if(user != null) {
+            throw new ForbiddenException(10071);
+        }
+    }
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.horaoen.sailor.web.dao.cms.UserDao">
-    <insert id="insert" parameterType="UserDo">
+    <insert id="insert" parameterType="UserDo" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sailor_user(username,
                                 nickname,
                                 avatar,
@@ -84,6 +84,13 @@
         SELECT *
         FROM sailor_user AS u
         WHERE u.id = #{userId}
+          AND u.delete_time IS NULL
+    </select>
+    
+    <select id="selectByNickname" resultType="com.horaoen.sailor.web.model.cms.UserDo">
+        SELECT *
+        FROM sailor_user AS u
+        WHERE u.nickname = #{nickname}
           AND u.delete_time IS NULL
     </select>
 

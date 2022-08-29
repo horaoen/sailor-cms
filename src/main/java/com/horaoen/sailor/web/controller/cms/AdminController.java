@@ -8,6 +8,7 @@ import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
+import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.service.cms.AdminService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
@@ -134,6 +135,13 @@ public class AdminController {
             return new UpdatedVo<>(10200);
         }
         return new UpdatedVo<>(7);
+    }
+
+    @PostMapping("/register")
+    @Operation(summary = "用户管理-添加用户")
+    public CreatedVo<?> register(@RequestBody @Validated RegisterDto dto) {
+        adminService.createUser(dto);
+        return new CreatedVo<>(11);
     }
     
 }

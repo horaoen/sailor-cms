@@ -51,4 +51,25 @@ public interface OrgService {
      * @param orgIds 部门id
      */
     void deleteOrg(List<Long> orgIds);
+
+    /**
+     * 根据orgId获取子部门
+     * @param userId 用户id
+     * @return 部门信息
+     */
+    OrgVo getOrgByUserId(Long userId);
+
+    /**
+     * 根据orgId检查部门是否存在
+     * @param orgId 组织id
+     * @return 是否存在
+     */
+    boolean checkOrgExistById(Long orgId);
+
+    /**
+     * 添加user org关系
+     * @param orgId 组织id
+     * @param userId 用户id
+     */
+    void addRelation(Long orgId, Long userId);
 }

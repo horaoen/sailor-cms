@@ -8,9 +8,11 @@ import com.horaoen.sailor.core.token.DoubleJWT;
 import com.horaoen.sailor.core.token.Tokens;
 import com.horaoen.sailor.web.common.LocalUser;
 import com.horaoen.sailor.web.dto.user.LoginDto;
+import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.model.cms.UserDo;
 import com.horaoen.sailor.web.service.cms.UserIdentityService;
 import com.horaoen.sailor.web.service.cms.UserService;
+import com.horaoen.sailor.web.vo.message.CreatedVo;
 import com.horaoen.sailor.web.vo.message.UnifyResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,7 +30,7 @@ public class UserController {
     private final DoubleJWT jwt;
     private final UserIdentityService userIdentityService;
     private final AuthorizeInterceptor authorizeInterceptor;
-
+    
     public UserController(UserService userService,
                           DoubleJWT jwt,
                           UserIdentityService userIdentityService, AuthorizeInterceptor authorizeInterceptor) {
@@ -38,6 +40,7 @@ public class UserController {
         this.authorizeInterceptor = authorizeInterceptor;
     }
 
+    
     @PostMapping("/login")
     @Operation(description = "用户登陆")
     public UnifyResponseVo<Tokens> login(@RequestBody @Validated LoginDto validator) {
@@ -63,6 +66,8 @@ public class UserController {
         UserDo user = LocalUser.getLocalUser();
         return jwt.generateTokens(user.getId());
     }
+    
+    
 
 
 }

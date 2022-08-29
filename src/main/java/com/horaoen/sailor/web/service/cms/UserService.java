@@ -1,7 +1,9 @@
 package com.horaoen.sailor.web.service.cms;
 
+import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.model.cms.PermissionDo;
 import com.horaoen.sailor.web.model.cms.UserDo;
+import com.horaoen.sailor.web.vo.cms.UserInfoVo;
 
 import java.util.List;
 
@@ -53,4 +55,17 @@ public interface UserService {
      * @return 权限
      */
     List<PermissionDo> getUserPermissions(long userId);
+
+    /**
+     * 更具用户昵称获取信息
+     * @param nickname 用户昵称
+     * @return 用户信息
+     */
+    UserInfoVo selectByNickname(String nickname);
+
+    /**
+     * 添加用户信息
+     * @param dto 用户信息
+     */
+    void add(RegisterDto dto);
 }

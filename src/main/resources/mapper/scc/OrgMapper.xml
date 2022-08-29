@@ -59,4 +59,12 @@
             AND o.org_name = #{orgName}
             AND o.delete_time IS NULL
     </select>
+    <select id="selectOrgByUserId" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
+        SELECT *
+        FROM sailor_org AS o
+        WHERE o.id IN (
+            SELECT org_id FROM sailor_user_org WHERE user_id = #{userId}
+        )
+            AND o.delete_time IS NULL
+    </select>
 </mapper>

@@ -2,12 +2,13 @@ package com.horaoen.sailor.web.vo.cms;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.horaoen.sailor.web.model.cms.UserDo;
+import com.horaoen.sailor.web.vo.scc.OrgVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  * @author horaoen
@@ -29,23 +30,51 @@ public class UserInfoVo {
      */
     private String nickname;
 
-    /**
-     * 头像url
-     */
-    private String avatar;
+    private String createUser;
+    
+    private String org;
+    
+    private String className;   
 
-    /**
-     * 邮箱
-     */
-    private String email;
+    private Date createTime;
 
-    /**
-     * 分组
-     */
-    private List<GroupVo> groups;
-
-    public UserInfoVo(UserDo user, List<GroupVo> groups) {
+    private String roleName;
+    public UserInfoVo(UserDo user, GroupVo groupVo, OrgVo orgVo) {
         BeanUtil.copyProperties(user, this);
-        this.groups = groups;
+        setRoleName(groupVo);
+        setOrgAndClass(orgVo);
+    }
+    
+    private void setRoleName(GroupVo groupVo) {
+        this.roleName = groupVo.getName();
+    }
+    
+    private void setOrgAndClass(OrgVo orgVo) {
+        String ancestors = orgVo.getAncestors();
+        int i = ancestors.lastIndexOf("-");
+        String org;
+        if(i != -1) {
+            org = ancestors.substring(ancestors.lastIndexOf("-"));
+        } else {
+            org = ancestors;
+        }
+        
+        switch (orgVo.getAncestors().split("-").length) {
+            case 1:
+                this.org = org;
+                this.className = "全部学校";
+                break;
+            case 2:
+                this.org = org;
+                this.className = "全部年级";
+                break;
+            case 3:
+                this.org = org;
+                this.className = "全部班级";
+                break;
+            default:
+                this.org = org;
+                this.className = orgVo.getOrgName();
+        }
     }
 }

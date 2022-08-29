@@ -6,6 +6,7 @@ import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
 import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
+import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.PermissionVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
@@ -104,4 +105,10 @@ public interface AdminService {
      * @return 是否更新成功
      */
     boolean updateGroup(Long id, UpdateGroupDto dto);
+
+    /**
+     * 添加用户
+     * @param dto 用户数据
+     */
+    void createUser(RegisterDto dto);
 }

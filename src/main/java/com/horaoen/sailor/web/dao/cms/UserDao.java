@@ -15,7 +15,7 @@ public interface UserDao {
     int selectCountByUsername(@Param("username") String username);
     int selectCountByEmail(@Param("email") String email);
 
-    void insert(@Param("user") UserDo user);
+    void insert(UserDo user);
 
     List<UserDo> selectUsersByGroupExcludedRoot(@Param("groupId") Long groupId, @Param("rootGroupId") Long rootGroupId);
     
@@ -24,4 +24,11 @@ public interface UserDao {
     UserDo selectByUsername(String username);
 
     UserDo getUserByUserId(Long userId);
+
+    /**
+     * 根据用户昵称返回用户信息
+     * @param nickname 用户昵称
+     * @return 用户信息
+     */
+    UserDo selectByNickname(String nickname);
 }

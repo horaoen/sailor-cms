@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.horaoen.sailor.web.dao.cms.UserGroupDao">
+    <insert id="insert">
+        INSERT INTO sailor_user_group(user_id, group_id)
+        VALUES (#{userId}, #{groupId})
+    </insert>
 
     <select id="selectUserByGroupId" resultType="com.horaoen.sailor.web.model.cms.UserGroupDo">
         SELECT *

@@ -56,4 +56,11 @@ public interface OrgDao {
      * @param ids 部门id
      */
     void deleteByIds(ArrayList<Long> ids);
+
+    /**
+     * 根据userId获取部门信息
+     * @param userId 用户id
+     * @return 部门信息
+     */
+    OrgDo selectOrgByUserId(Long userId);
 }
