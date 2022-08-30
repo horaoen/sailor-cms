@@ -44,7 +44,7 @@ public class AdminController {
         return new UnifyResponseVo<>(result);
     }
     
-    @GetMapping("/users")
+    @GetMapping("/user")
     @Operation(
             summary = "用户管理-管理员查询用户",
             description = "根据分组查询root用户以外的所有用户, 如果groupId不填默认查询所有用户组"
