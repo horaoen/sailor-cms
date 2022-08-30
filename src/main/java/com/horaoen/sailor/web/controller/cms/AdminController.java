@@ -85,7 +85,7 @@ public class AdminController {
     }
 
     @PutMapping("/user/{id}")
-    @Operation(summary = "用户管理-修改用户用户组")
+    @Operation(summary = "用户管理-修改用户信息")
     public UpdatedVo<?> updateUser(@PathVariable @Positive(message = "{id.positive}") Long id, 
                                    @RequestBody @Validated UpdateUserInfoDto dto) {
         boolean res = adminService.updateUserInfo(id, dto);

@@ -15,12 +15,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class UserDo extends BaseModel {
     /**
-     * 用户名，唯一
+     * 用户名
      */
     private String username;
 
     /**
-     * 用户昵称
+     * 用户昵称, 唯一
      */
     private String nickname;
     
@@ -33,4 +33,9 @@ public class UserDo extends BaseModel {
      * 邮箱
      */
     private String email;
+    
+    /**
+     * 手机号
+     */
+    private String phone;
 }

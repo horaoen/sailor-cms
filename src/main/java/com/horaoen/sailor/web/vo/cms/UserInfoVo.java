@@ -31,6 +31,7 @@ public class UserInfoVo {
     private String nickname;
 
     private String createUser;
+    private String phone;
     
     private String org;
     
