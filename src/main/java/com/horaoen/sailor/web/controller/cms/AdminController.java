@@ -63,18 +63,6 @@ public class AdminController {
         return PageUtil.build(userInfos); 
     }
 
-    @PutMapping("/user/{id}/password")
-    @Operation(summary = "用户管理-修改用户密码")
-    public UpdatedVo<?> changeUserPassword(
-            @PathVariable @Positive(message = "{id.positive}") Long id, 
-            @RequestBody @Validated ResetPasswordDto dto) {
-        boolean res = adminService.changeUserPassword(id, dto);
-        if(!res) {
-            return new UpdatedVo<>(10011);
-        }
-        return new UpdatedVo<>(4);
-    }
-
     @DeleteMapping("/user/{userId}")
     @Operation(summary = "用户管理-删除用户")
     public DeletedVo<?> deleteUser(@PathVariable @Positive(message = "{id.positive}") Long userId) {
