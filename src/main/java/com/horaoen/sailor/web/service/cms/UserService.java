@@ -68,4 +68,10 @@ public interface UserService {
      * @param dto 用户信息
      */
     void add(RegisterDto dto);
+
+    /**
+     * 更新用户信息
+     * @param userDo 用户信息
+     */
+    void updateUser(UserDo userDo);
 }

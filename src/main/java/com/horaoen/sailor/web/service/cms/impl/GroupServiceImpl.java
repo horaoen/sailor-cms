@@ -4,6 +4,7 @@ import cn.hutool.core.bean.BeanUtil;
 import com.horaoen.sailor.web.bo.cms.GroupPermissionBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.dao.cms.GroupDao;
+import com.horaoen.sailor.web.dao.cms.UserGroupDao;
 import com.horaoen.sailor.web.model.cms.GroupDo;
 import com.horaoen.sailor.web.service.cms.GroupService;
 import com.horaoen.sailor.web.service.cms.PermissionService;
@@ -21,10 +22,12 @@ import java.util.stream.Collectors;
 @Service
 public class GroupServiceImpl implements GroupService {
     private final GroupDao groupDao;
+    private final UserGroupDao userGroupDao;
     private final PermissionService permissionService;
 
-    public GroupServiceImpl(GroupDao groupDao, PermissionService permissionService) {
+    public GroupServiceImpl(GroupDao groupDao, UserGroupDao userGroupDao, PermissionService permissionService) {
         this.groupDao = groupDao;
+        this.userGroupDao = userGroupDao;
         this.permissionService = permissionService;
     }
 
@@ -107,6 +110,12 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public boolean update(GroupDo groupDo) {
         return groupDao.updateGroup(groupDo) > 0;
+    }
+
+    @Override
+    public void updateUserGroups(Long userId, List<Long> groupIds) {
+        userGroupDao.deleteUserGroupsByUserId(userId);
+        userGroupDao.insertUserGroups(userId, groupIds);
     }
 
     @Override

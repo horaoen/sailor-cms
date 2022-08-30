@@ -99,5 +99,10 @@ public class UserServiceImpl implements UserService {
         orgService.addRelation(dto.getOrgId(), userDo.getId());
     }
 
+    @Override
+    public void updateUser(UserDo userDo) {
+        userDao.updateUser(userDo);
+    }
+
 
 }

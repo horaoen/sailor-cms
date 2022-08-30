@@ -115,6 +115,11 @@ public class OrgServiceImpl implements OrgService {
         userOrgDao.insert(orgId, userId);
     }
 
+    @Override
+    public void updateUserOrg(Long userId, Long orgId) {
+        userOrgDao.update(userId, orgId);
+    }
+
     private Set<Long> getAllSubOrgansId(OrgDo organ, List<OrgDo> organList) {
         Set<Long> subOrgansId = new HashSet<>();
         subOrgansId.add(organ.getId());

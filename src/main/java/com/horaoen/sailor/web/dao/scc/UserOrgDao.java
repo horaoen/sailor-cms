@@ -14,4 +14,11 @@ public interface UserOrgDao {
      * @param userId 用户id
      */
     void insert(@Param("orgId") Long orgId, @Param("userId") Long userId);
+
+    /**
+     * 更新
+     * @param userId 用户id
+     * @param orgId 组织id
+     */
+    void update(@Param("userId") Long userId, @Param("orgId") Long orgId);
 }

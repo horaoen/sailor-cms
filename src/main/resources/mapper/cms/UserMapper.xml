@@ -17,6 +17,15 @@
         SET delete_time = now()
         WHERE id = #{userId}
     </update>
+    
+    <update id="updateUser">
+        UPDATE sailor_user
+        SET username = #{username},
+            nickname = #{nickname},
+            phone = #{phone}
+        WHERE id = #{id}
+            AND delete_time is null
+    </update>
 
     <select id="selectCountByUsername" parameterType="java.lang.String" resultType="java.lang.Integer">
         SELECT COUNT(*)

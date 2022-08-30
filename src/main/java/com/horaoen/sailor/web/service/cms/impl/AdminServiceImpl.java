@@ -1,6 +1,7 @@
 package com.horaoen.sailor.web.service.cms.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import com.github.pagehelper.util.StringUtil;
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
 import com.horaoen.sailor.web.bo.cms.ModulePermissionBo;
@@ -114,24 +115,47 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean updateUserInfo(Long id, UpdateUserInfoDto dto) {
-//        List<Long> groupIds = dto.getGroupIds();
-//        if(groupIds == null || groupIds.isEmpty()) {
-//            return false;
-//        }
-//        
-//        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
-//        boolean anyMatch = groupIds.stream().anyMatch(it -> it.equals(rootGroupId));
-//        if (anyMatch) {
-//            throw new ForbiddenException(10073);
-//        }
-//        List<Long> existGroupIds = groupService.getUserGroupIdsByUserId(id);
-//        // 删除existGroupIds有，而groupIds没有的
-//        List<Long> deleteIds = existGroupIds.stream().filter(it -> !groupIds.contains(it)).collect(Collectors.toList());
-//        // 添加newGroupIds有，而existGroupIds没有的
-//        List<Long> addIds = groupIds.stream().filter(it -> !existGroupIds.contains(it)).collect(Collectors.toList());
-//        return groupService.deleteUserGroupRelations(id, deleteIds) && groupService.addUserGroupRelations(id, addIds);
-            return true;
+        //校验
+        throwUserNotExitById(id);
+        UserDo userDo = userService.getUserByUserId(id);
+        if(!userDo.getNickname().equals(dto.getNickname())) {
+            throwUserExistByNickname(dto.getNickname());
+        }
+        dto.getGroupIds().forEach(this::throwGroupNotExistById);
+        throwOrgNotExistByOrgId(dto.getOrgId());
+
+        //禁止修改成root用户组
+        Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
+        boolean anyMatch = dto.getGroupIds().stream().anyMatch(it -> it.equals(rootGroupId));
+        if (anyMatch) {
+            throw new ForbiddenException(10073);
+        }
+        
+        //更新用户基本信息
+        UserDo userdo = new UserDo();
+        BeanUtil.copyProperties(dto, userdo);
+        userdo.setId(id);
+        userService.updateUser(userdo);
+        
+        //更新部门信息
+        orgService.updateUserOrg(id, dto.getOrgId());
+        
+        //更改组信息
+        List<Long> groupIds = dto.getGroupIds();
+        groupService.updateUserGroups(id, groupIds);
+        
+
+        //更改密码
+        if(StringUtil.isNotEmpty(dto.getNewPassword()) && dto.getNewPassword().equals(dto.getConfirmPassword())) {
+            userIdentityService.changePassword(id, dto.getNewPassword());
+        }
+        
+        return true;
+    }
+
+    private void throwUserNotExitById(Long id) {
     }
 
     @Override

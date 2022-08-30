@@ -11,4 +11,9 @@
             #{orgId}
         )
     </insert>
+    <update id="update">
+        update sailor_user_org set
+            org_id = #{orgId}
+        where user_id = #{userId}
+    </update>
 </mapper>

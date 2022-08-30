@@ -31,4 +31,10 @@ public interface UserDao {
      * @return 用户信息
      */
     UserDo selectByNickname(String nickname);
+
+    /**
+     * 更新用户基本信息
+     * @param userDo 用户信息
+     */
+    void updateUser(UserDo userDo);
 }

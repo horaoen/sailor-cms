@@ -72,4 +72,11 @@ public interface OrgService {
      * @param userId 用户id
      */
     void addRelation(Long orgId, Long userId);
+
+    /**
+     * 更新user org关系
+     * @param userId 用户id
+     * @param orgId 组织id
+     */
+    void updateUserOrg(Long userId, Long orgId);
 }

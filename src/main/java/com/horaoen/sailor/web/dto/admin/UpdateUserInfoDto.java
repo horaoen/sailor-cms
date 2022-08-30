@@ -20,7 +20,7 @@ public class UpdateUserInfoDto {
     @NotBlank(message = "{nickname.not-blank}")
     private String nickname;
     
-    @Pattern(regexp = "\"^1[3|4|5|7|8][0-9]\\\\d{4,8}$\"", message = "{user.phone.pattern}")
+    @Pattern(regexp = "^1[3456789]\\d{9}$", message = "{user.phone.pattern}")
     private String phone;
     
     @LongList(min = 1, message = "{group.ids.long-list}")

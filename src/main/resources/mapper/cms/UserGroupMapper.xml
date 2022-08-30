@@ -5,6 +5,19 @@
         INSERT INTO sailor_user_group(user_id, group_id)
         VALUES (#{userId}, #{groupId})
     </insert>
+    
+    <insert id="insertUserGroups">
+        INSERT INTO sailor_user_group(user_id, group_id)
+        VALUES
+        <foreach collection="groupIds" item="groupId" separator=",">
+            (#{userId}, #{groupId})
+        </foreach>
+    </insert>
+    
+    <delete id="deleteUserGroupsByUserId">
+        DELETE FROM sailor_user_group
+        WHERE user_id = #{userId}
+    </delete>
 
     <select id="selectUserByGroupId" resultType="com.horaoen.sailor.web.model.cms.UserGroupDo">
         SELECT *

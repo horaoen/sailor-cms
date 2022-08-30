@@ -101,4 +101,10 @@ public interface GroupService {
      * @return 是否更新成功
      */
     boolean update(GroupDo groupDo);
+
+    /**批量更改用户组
+     * @param userId 用户id
+     * @param groupIds 用户组id列表
+     */
+    void updateUserGroups(Long userId, List<Long> groupIds);
 }
