@@ -1,6 +1,5 @@
 package com.horaoen.sailor.web.dao.ssc;
 
-import com.horaoen.sailor.web.dto.student.StudentDto;
 import com.horaoen.sailor.web.model.ssc.StudentDo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,18 +13,24 @@ public interface StudentDao {
      * @param idCard 身份证号
      * @return 学生信息
      */
-    StudentDo findByIdCard(String idCard);
+    StudentDo selectByIdCard(String idCard);
 
     /**
      * 根据学号查询学生信息
      * @param studentId 学号
      * @return 学生信息
      */
-    StudentDo findByStudentId(String studentId);
+    StudentDo selectByStudentId(String studentId);
 
     /**
      * 添加学生信息
      * @param studentDo 学生信息
      */
     void insertStudent(StudentDo studentDo);
+
+    /**
+     * 删除学生信息
+     * @param studentId 学生id
+     */
+    void deleteStudent(String studentId);
 }

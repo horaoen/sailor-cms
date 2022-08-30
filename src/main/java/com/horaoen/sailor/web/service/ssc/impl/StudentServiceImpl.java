@@ -1,6 +1,7 @@
 package com.horaoen.sailor.web.service.ssc.impl;
 
 import com.horaoen.sailor.autoconfigure.exception.HttpException;
+import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
 import com.horaoen.sailor.web.dao.ssc.StudentDao;
 import com.horaoen.sailor.web.dto.student.StudentDto;
 import com.horaoen.sailor.web.model.ssc.StudentDo;
@@ -43,14 +44,31 @@ public class StudentServiceImpl implements StudentService {
         orgService.addOrgStudentRelation(dto.getOrgId(), dto.getStudentId());
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteStudent(String studentId) {
+        // 检查studentId是否存在
+        throwStudentNotExistByStudentId(studentId);
+        // 删除学生信息
+        studentDao.deleteStudent(studentId);
+        // 删除学生 部门关系
+        orgService.deleteOrgStudentRelation(studentId);
+    }
+
+    private void throwStudentNotExistByStudentId(String studentId) {
+        if(studentDao.selectByStudentId(studentId) == null) {
+            throw new NotFoundException(10209);
+        }
+    }
+
     private void throwStudentExistByIdCard(String idCard) {
-        if (studentDao.findByIdCard(idCard) != null) {
+        if (studentDao.selectByIdCard(idCard) != null) {
             throw new HttpException(10206);
         }
     }
 
     private void throwStudentExistByStudentId(String studentId) {
-        if (studentDao.findByStudentId(studentId) != null) {
+        if (studentDao.selectByStudentId(studentId) != null) {
             throw new HttpException(10207);
         }
     }

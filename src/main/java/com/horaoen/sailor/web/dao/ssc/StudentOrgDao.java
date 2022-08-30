@@ -14,4 +14,10 @@ public interface StudentOrgDao {
      * @param studentId 学生id
      */
     void insert(@Param("orgId") Long orgId, @Param("studentId") String studentId);
+
+    /**
+     * 删除关系
+     * @param studentId
+     */
+    void deleteByStudentId(String studentId);
 }

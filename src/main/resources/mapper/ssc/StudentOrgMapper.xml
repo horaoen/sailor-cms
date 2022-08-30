@@ -11,4 +11,7 @@
             #{orgId}
         )
     </insert>
+    <delete id="deleteByStudentId">
+        DELETE FROM sailor_student_org WHERE student_id = #{studentId}
+    </delete>
 </mapper>

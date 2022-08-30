@@ -1,4 +1,4 @@
-package com.horaoen.sailor.web.dto.admin;
+package com.horaoen.sailor.web.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.horaoen.sailor.autoconfigure.validator.LongList;

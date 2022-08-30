@@ -2,6 +2,7 @@ spring:
   devtools:
     restart:
       enabled: true
+      
   mvc:
     log-request-details: true
   datasource:

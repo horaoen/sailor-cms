@@ -128,6 +128,11 @@ public class OrgServiceImpl implements OrgService {
         studentOrgDao.insert(orgId, studentId);
     }
 
+    @Override
+    public void deleteOrgStudentRelation(String studentId) {
+        studentOrgDao.deleteByStudentId(studentId);
+    }
+
     private Set<Long> getAllSubOrgansId(OrgDo organ, List<OrgDo> organList) {
         Set<Long> subOrgansId = new HashSet<>();
         subOrgansId.add(organ.getId());

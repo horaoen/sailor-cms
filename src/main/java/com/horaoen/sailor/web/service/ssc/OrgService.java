@@ -86,4 +86,10 @@ public interface OrgService {
      * @param studentId 学生id
      */
     void addOrgStudentRelation(Long orgId, String studentId);
+
+    /**
+     * 删除student org关系
+     * @param studentId 学号
+     */
+    void deleteOrgStudentRelation(String studentId);
 }

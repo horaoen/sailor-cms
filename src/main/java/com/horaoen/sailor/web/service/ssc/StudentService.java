@@ -12,4 +12,10 @@ public interface StudentService {
      * @param dto 学生信息
      */
     void addStudent(StudentDto dto);
+
+    /**
+     * 删除学生信息
+     * @param studentId 学生id
+     */
+    void deleteStudent(String studentId);
 }

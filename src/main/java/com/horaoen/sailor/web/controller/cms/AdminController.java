@@ -7,7 +7,7 @@ import com.horaoen.sailor.web.common.util.PageUtil;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
-import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
+import com.horaoen.sailor.web.dto.user.UpdateUserInfoDto;
 import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.service.cms.AdminService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;

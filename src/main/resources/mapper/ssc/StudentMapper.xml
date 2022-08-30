@@ -21,11 +21,18 @@
              #{studentName}
          )
     </insert>
+    
+    <update id="deleteStudent">
+        UPDATE sailor_student
+        SET delete_time = now()
+        WHERE student_id = #{studentId}
+    </update>
 
-    <select id="findByIdCard" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
+    <select id="selectByIdCard" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
         SELECT * FROM sailor_student WHERE id_card = #{idCard}
     </select>
-    <select id="findByStudentId" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
+    
+    <select id="selectByStudentId" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
         SELECT * FROM sailor_student WHERE student_id = #{studentId}
     </select>
 </mapper>

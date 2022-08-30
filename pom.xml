@@ -27,7 +27,7 @@
         <mybatis.version>2.2.2</mybatis.version>
         <hutool.version>5.8.5</hutool.version>
         <pageHelper.version>5.3.1</pageHelper.version>
-        <springdoc.version>1.6.10</springdoc.version>
+        <springdoc.version>1.6.11</springdoc.version>
         <jhash.version>2.2.0</jhash.version>
         <jwt.version>4.0.0</jwt.version>
     </properties>
@@ -50,6 +50,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
         </dependency>
 
         <dependency>

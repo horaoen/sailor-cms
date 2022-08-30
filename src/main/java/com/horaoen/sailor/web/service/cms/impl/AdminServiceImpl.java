@@ -11,7 +11,7 @@ import com.horaoen.sailor.web.dao.cms.GroupPermissionDao;
 import com.horaoen.sailor.web.dto.admin.NewGroupDto;
 import com.horaoen.sailor.web.dto.admin.ResetPasswordDto;
 import com.horaoen.sailor.web.dto.admin.UpdateGroupDto;
-import com.horaoen.sailor.web.dto.admin.UpdateUserInfoDto;
+import com.horaoen.sailor.web.dto.user.UpdateUserInfoDto;
 import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.model.cms.GroupDo;
 import com.horaoen.sailor.web.model.cms.UserDo;
@@ -175,7 +175,15 @@ public class AdminServiceImpl implements AdminService {
             throw new ForbiddenException(10075);
         }
         throwGroupNotExistById(id);
+        throwGroupExistUserByGroupId(id);
         return groupService.deleteGroup(id);
+    }
+
+    private void throwGroupExistUserByGroupId(Long id) {
+        List<UserDo> userDos = userService.getUserByGroupId(id);
+        if(!userDos.isEmpty()) {
+            throw new ForbiddenException(10210);
+        }
     }
 
     @Override
