@@ -1,9 +1,9 @@
-package com.horaoen.sailor.web.service.scc;
+package com.horaoen.sailor.web.service.ssc;
 
-import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
+import com.horaoen.sailor.web.bo.ssc.OrgNodeBo;
 import com.horaoen.sailor.web.dto.org.OrgDto;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
-import com.horaoen.sailor.web.vo.scc.OrgVo;
+import com.horaoen.sailor.web.vo.ssc.OrgVo;
 
 import java.util.List;
 
@@ -71,7 +71,7 @@ public interface OrgService {
      * @param orgId 组织id
      * @param userId 用户id
      */
-    void addRelation(Long orgId, Long userId);
+    void addOrgUserRelation(Long orgId, Long userId);
 
     /**
      * 更新user org关系
@@ -79,4 +79,11 @@ public interface OrgService {
      * @param orgId 组织id
      */
     void updateUserOrg(Long userId, Long orgId);
+
+    /**
+     * 添加student org关系
+     * @param orgId 组织id
+     * @param studentId 学生id
+     */
+    void addOrgStudentRelation(Long orgId, String studentId);
 }

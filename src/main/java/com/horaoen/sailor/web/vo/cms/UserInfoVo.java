@@ -2,7 +2,7 @@ package com.horaoen.sailor.web.vo.cms;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.horaoen.sailor.web.model.cms.UserDo;
-import com.horaoen.sailor.web.vo.scc.OrgVo;
+import com.horaoen.sailor.web.vo.ssc.OrgVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

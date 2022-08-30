@@ -1,14 +1,15 @@
-package com.horaoen.sailor.web.service.scc.impl;
+package com.horaoen.sailor.web.service.ssc.impl;
 
 import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
-import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
-import com.horaoen.sailor.web.dao.scc.OrgDao;
-import com.horaoen.sailor.web.dao.scc.UserOrgDao;
+import com.horaoen.sailor.web.bo.ssc.OrgNodeBo;
+import com.horaoen.sailor.web.dao.ssc.OrgDao;
+import com.horaoen.sailor.web.dao.ssc.StudentOrgDao;
+import com.horaoen.sailor.web.dao.ssc.UserOrgDao;
 import com.horaoen.sailor.web.dto.org.OrgDto;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
-import com.horaoen.sailor.web.model.scc.OrgDo;
-import com.horaoen.sailor.web.service.scc.OrgService;
-import com.horaoen.sailor.web.vo.scc.OrgVo;
+import com.horaoen.sailor.web.model.ssc.OrgDo;
+import com.horaoen.sailor.web.service.ssc.OrgService;
+import com.horaoen.sailor.web.vo.ssc.OrgVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -25,10 +26,12 @@ import java.util.stream.Collectors;
 public class OrgServiceImpl implements OrgService {
     private final OrgDao orgDao;
     private final UserOrgDao userOrgDao;
+    private final StudentOrgDao studentOrgDao;
 
-    public OrgServiceImpl(OrgDao orgDao, UserOrgDao userOrgDao) {
+    public OrgServiceImpl(OrgDao orgDao, UserOrgDao userOrgDao, StudentOrgDao studentOrgDao) {
         this.orgDao = orgDao;
         this.userOrgDao = userOrgDao;
+        this.studentOrgDao = studentOrgDao;
     }
 
     @Override
@@ -111,13 +114,18 @@ public class OrgServiceImpl implements OrgService {
     }
 
     @Override
-    public void addRelation(Long orgId, Long userId) {
+    public void addOrgUserRelation(Long orgId, Long userId) {
         userOrgDao.insert(orgId, userId);
     }
 
     @Override
     public void updateUserOrg(Long userId, Long orgId) {
         userOrgDao.update(userId, orgId);
+    }
+
+    @Override
+    public void addOrgStudentRelation(Long orgId, String studentId) {
+        studentOrgDao.insert(orgId, studentId);
     }
 
     private Set<Long> getAllSubOrgansId(OrgDo organ, List<OrgDo> organList) {

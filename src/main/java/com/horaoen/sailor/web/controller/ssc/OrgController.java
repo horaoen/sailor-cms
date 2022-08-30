@@ -1,21 +1,20 @@
-package com.horaoen.sailor.web.controller.scc;
+package com.horaoen.sailor.web.controller.ssc;
 
-import com.horaoen.sailor.web.bo.scc.OrgNodeBo;
+import com.horaoen.sailor.web.bo.ssc.OrgNodeBo;
 import com.horaoen.sailor.web.dto.org.OrgDto;
 import com.horaoen.sailor.web.dto.org.TopOrgDto;
-import com.horaoen.sailor.web.service.scc.OrgService;
+import com.horaoen.sailor.web.service.ssc.OrgService;
 import com.horaoen.sailor.web.vo.message.CreatedVo;
 import com.horaoen.sailor.web.vo.message.DeletedVo;
 import com.horaoen.sailor.web.vo.message.UnifyResponseVo;
 import com.horaoen.sailor.web.vo.message.UpdatedVo;
-import com.horaoen.sailor.web.vo.scc.OrgVo;
+import com.horaoen.sailor.web.vo.ssc.OrgVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Positive;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
  * @author horaoen
  */
 @RestController
-@RequestMapping("/scc/org")
+@RequestMapping("/ssc/org")
 @Tag(name = "组织架构管理")
 public class OrgController {
     private final OrgService orgService;

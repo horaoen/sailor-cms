@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.horaoen.sailor.web.dao.ssc.StudentDao">
+    <insert id="insertStudent">
+        INSERT INTO sailor_student
+        (
+             student_id,
+             id_card,
+             guardian_name,
+             guardian_phone,
+             guardian_id_card,
+             student_name
+         )
+        VALUES
+        (
+             #{studentId},
+             #{idCard},
+             #{guardianName},
+             #{guardianPhone},
+             #{guardianIdCard},
+             #{studentName}
+         )
+    </insert>
+
+    <select id="findByIdCard" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
+        SELECT * FROM sailor_student WHERE id_card = #{idCard}
+    </select>
+    <select id="findByStudentId" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
+        SELECT * FROM sailor_student WHERE student_id = #{studentId}
+    </select>
+</mapper>

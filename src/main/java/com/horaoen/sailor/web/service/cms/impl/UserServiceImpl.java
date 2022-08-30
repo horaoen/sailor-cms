@@ -9,10 +9,10 @@ import com.horaoen.sailor.web.model.cms.UserDo;
 import com.horaoen.sailor.web.service.cms.GroupService;
 import com.horaoen.sailor.web.service.cms.PermissionService;
 import com.horaoen.sailor.web.service.cms.UserService;
-import com.horaoen.sailor.web.service.scc.OrgService;
+import com.horaoen.sailor.web.service.ssc.OrgService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
-import com.horaoen.sailor.web.vo.scc.OrgVo;
+import com.horaoen.sailor.web.vo.ssc.OrgVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService {
         BeanUtils.copyProperties(dto, userDo);
         userDao.insert(userDo);
         dto.getGroupIds().forEach(groupId -> userGroupDao.insert(userDo.getId(), groupId));
-        orgService.addRelation(dto.getOrgId(), userDo.getId());
+        orgService.addOrgUserRelation(dto.getOrgId(), userDo.getId());
     }
 
     @Override

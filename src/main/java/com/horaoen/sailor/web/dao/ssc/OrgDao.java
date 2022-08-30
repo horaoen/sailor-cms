@@ -1,6 +1,6 @@
-package com.horaoen.sailor.web.dao.scc;
+package com.horaoen.sailor.web.dao.ssc;
 
-import com.horaoen.sailor.web.model.scc.OrgDo;
+import com.horaoen.sailor.web.model.ssc.OrgDo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.ArrayList;

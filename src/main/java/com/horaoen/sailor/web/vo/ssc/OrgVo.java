@@ -1,4 +1,4 @@
-package com.horaoen.sailor.web.vo.scc;
+package com.horaoen.sailor.web.vo.ssc;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

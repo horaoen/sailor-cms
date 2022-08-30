@@ -1,4 +1,4 @@
-package com.horaoen.sailor.web.dao.scc;
+package com.horaoen.sailor.web.dao.ssc;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

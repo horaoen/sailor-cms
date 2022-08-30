@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.horaoen.sailor.web.dao.scc.OrgDao">
+<mapper namespace="com.horaoen.sailor.web.dao.ssc.OrgDao">
     <insert id="addTopOrg" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO 
             sailor_org
@@ -39,27 +39,27 @@
         </foreach>
     </update>
 
-    <select id="getAllRegion" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
+    <select id="getAllRegion" resultType="com.horaoen.sailor.web.model.ssc.OrgDo">
         SELECT *
         FROM sailor_org AS o
         WHERE o.delete_time IS NULL
     </select>
     
-    <select id="selectOrgById" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
+    <select id="selectOrgById" resultType="com.horaoen.sailor.web.model.ssc.OrgDo">
         SELECT *
         FROM sailor_org AS o
         WHERE o.id = #{orgId}
             AND o.delete_time IS NULL
     </select>
     
-    <select id="selectByParentIdAndOrgName" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
+    <select id="selectByParentIdAndOrgName" resultType="com.horaoen.sailor.web.model.ssc.OrgDo">
         SELECT *
         FROM sailor_org AS o
         WHERE o.parent_id = #{parentId}
             AND o.org_name = #{orgName}
             AND o.delete_time IS NULL
     </select>
-    <select id="selectOrgByUserId" resultType="com.horaoen.sailor.web.model.scc.OrgDo">
+    <select id="selectOrgByUserId" resultType="com.horaoen.sailor.web.model.ssc.OrgDo">
         SELECT *
         FROM sailor_org AS o
         WHERE o.id IN (

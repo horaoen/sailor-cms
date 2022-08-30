@@ -16,12 +16,12 @@ import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.model.cms.GroupDo;
 import com.horaoen.sailor.web.model.cms.UserDo;
 import com.horaoen.sailor.web.service.cms.*;
-import com.horaoen.sailor.web.service.scc.OrgService;
+import com.horaoen.sailor.web.service.ssc.OrgService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.PermissionForSelectVo;
 import com.horaoen.sailor.web.vo.cms.PermissionVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
-import com.horaoen.sailor.web.vo.scc.OrgVo;
+import com.horaoen.sailor.web.vo.ssc.OrgVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

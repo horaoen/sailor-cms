@@ -61,8 +61,8 @@ public class OpenApiConfiguration {
     @Bean
     public GroupedOpenApi sccApi() {
         return GroupedOpenApi.builder()
-                .group("scc")
-                .pathsToMatch("/scc/**")
+                .group("ssc")
+                .pathsToMatch("/ssc/**")
                 .build();
     }
 }
