@@ -67,7 +67,4 @@ public class UserController {
         return jwt.generateTokens(user.getId());
     }
     
-    
-
-
 }

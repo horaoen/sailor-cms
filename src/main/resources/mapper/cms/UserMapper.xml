@@ -4,11 +4,11 @@
     <insert id="insert" parameterType="UserDo" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sailor_user(username,
                                 nickname,
-                                avatar,
+                                phone,
                                 email)
         values (#{username},
                 #{nickname},
-                #{avatar},
+                #{phone},
                 #{email})
     </insert>
     
