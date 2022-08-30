@@ -143,5 +143,4 @@ public class AdminController {
         adminService.createUser(dto);
         return new CreatedVo<>(11);
     }
-    
 }

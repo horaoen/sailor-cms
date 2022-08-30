@@ -148,7 +148,11 @@ public class OrgServiceImpl implements OrgService {
         List<OrgNodeBo> children = organList.stream()
                 .filter(organItem -> organ.getId().equals(organItem.getParentId()) && organItem.getId() != 1)
                 .map(organItem -> convertToOrganNodeBo(organItem, organList)).collect(Collectors.toList());
-        organNode.setChildren(children);
+        
+        // 前端需求，如果children empty, 返回null;
+        if(!children.isEmpty()) {
+            organNode.setChildren(children);
+        }
         return organNode;
     }
 
