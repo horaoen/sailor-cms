@@ -43,7 +43,7 @@ public class GroupServiceImpl implements GroupService {
             return null;
         } else {
             List<GroupDo> groupDos = groupDao.selectGroupByLevel(level);
-            return groupDos.get(0);
+            return groupDos.isEmpty() ? null : groupDos.get(0);
         }
     }
 

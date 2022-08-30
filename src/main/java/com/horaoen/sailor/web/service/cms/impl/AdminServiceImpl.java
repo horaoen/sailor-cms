@@ -163,7 +163,7 @@ public class AdminServiceImpl implements AdminService {
         List<GroupVo> allGroups = groupService.getAllGroups();
         return allGroups;
     }
-
+    
     @Override
     public boolean deleteGroup(Long id) {
         Long rootGroupId = groupService.getParticularGroupIdByLevel(GroupLevelEnum.ROOT);
