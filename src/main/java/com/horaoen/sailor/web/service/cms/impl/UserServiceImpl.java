@@ -11,6 +11,7 @@ import com.horaoen.sailor.web.service.cms.PermissionService;
 import com.horaoen.sailor.web.service.cms.UserService;
 import com.horaoen.sailor.web.service.ssc.OrgService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
+import com.horaoen.sailor.web.vo.cms.UserInfoForEditVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
 import com.horaoen.sailor.web.vo.ssc.OrgVo;
 import org.springframework.beans.BeanUtils;
@@ -102,6 +103,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UserDo userDo) {
         userDao.updateUser(userDo);
+    }
+
+    @Override
+    public UserInfoForEditVo getUserInfoForEdit(Long userId) {
+        UserDo userDo = userDao.getUserByUserId(userId);
+        List<GroupVo> groups = groupService.getUserGroupsByUserId(userId);
+        OrgVo org = orgService.getOrgByUserId(userId);
+        
+        UserInfoForEditVo userInfo = new UserInfoForEditVo();
+        BeanUtils.copyProperties(userDo, userInfo);
+        userInfo.setGroupId(groups.get(0).getId());
+        userInfo.setOrgId(org.getId());
+        return userInfo;
     }
 
 

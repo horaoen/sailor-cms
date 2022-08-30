@@ -9,6 +9,7 @@ import com.horaoen.sailor.web.dto.user.UpdateUserInfoDto;
 import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.PermissionVo;
+import com.horaoen.sailor.web.vo.cms.UserInfoForEditVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
 
 import java.util.List;
@@ -111,4 +112,11 @@ public interface AdminService {
      * @param dto 用户数据
      */
     void createUser(RegisterDto dto);
+
+    /**
+     * 根据userId获取用于编辑的用户信息
+     * @param userId 用户id
+     * @return 用户信息
+     */
+    UserInfoForEditVo getUserInfoForEdit(Long userId);
 }

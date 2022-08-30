@@ -17,10 +17,7 @@ import com.horaoen.sailor.web.model.cms.GroupDo;
 import com.horaoen.sailor.web.model.cms.UserDo;
 import com.horaoen.sailor.web.service.cms.*;
 import com.horaoen.sailor.web.service.ssc.OrgService;
-import com.horaoen.sailor.web.vo.cms.GroupVo;
-import com.horaoen.sailor.web.vo.cms.PermissionForSelectVo;
-import com.horaoen.sailor.web.vo.cms.PermissionVo;
-import com.horaoen.sailor.web.vo.cms.UserInfoVo;
+import com.horaoen.sailor.web.vo.cms.*;
 import com.horaoen.sailor.web.vo.ssc.OrgVo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -280,6 +277,12 @@ public class AdminServiceImpl implements AdminService {
         userService.add(dto);
     }
 
+    @Override
+    public UserInfoForEditVo getUserInfoForEdit(Long userId) {
+        throwUserNotExistById(userId);
+        return userService.getUserInfoForEdit(userId);
+    }
+
 
     private void throwOrgNotExistByOrgId(Long orgId) {
         if(!orgService.checkOrgExistById(orgId)) {
@@ -291,6 +294,12 @@ public class AdminServiceImpl implements AdminService {
         UserInfoVo user = userService.selectByNickname(nickname);
         if(user != null) {
             throw new ForbiddenException(10071);
+        }
+    }
+    
+    private void throwUserNotExistById(Long id) {
+        if(!userService.checkUserExistById(id)) {
+            throw new NotFoundException(10211);
         }
     }
 

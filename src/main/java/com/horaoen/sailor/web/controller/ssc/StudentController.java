@@ -5,6 +5,9 @@ import com.horaoen.sailor.web.service.ssc.OrgService;
 import com.horaoen.sailor.web.service.ssc.StudentService;
 import com.horaoen.sailor.web.vo.message.CreatedVo;
 import com.horaoen.sailor.web.vo.message.DeletedVo;
+import com.horaoen.sailor.web.vo.message.UnifyResponseVo;
+import com.horaoen.sailor.web.vo.message.UpdatedVo;
+import com.horaoen.sailor.web.vo.ssc.StudentVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
@@ -38,4 +41,19 @@ public class StudentController {
         studentService.deleteStudent(studentId);
         return new DeletedVo<>(18);
     }
+    
+    @PutMapping("/{studentId}")
+    @Operation(summary = "学生管理-更新信息")
+    public UpdatedVo<?> updateStudent(@PathVariable String studentId,
+                                      @RequestBody @Validated StudentDto dto) {
+        studentService.updateStudent(studentId, dto);
+        return new UpdatedVo<>(23);
+    }
+    
+    @GetMapping("/{studentId}")
+    @Operation(summary = "学生管理-根据studentId查询信息") 
+    public UnifyResponseVo<StudentVo> getStudent(@PathVariable String studentId) {
+        return new UnifyResponseVo<>(studentService.getStudent(studentId));
+    }
+    
 }

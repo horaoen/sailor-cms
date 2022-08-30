@@ -12,6 +12,7 @@ import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.service.cms.AdminService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
+import com.horaoen.sailor.web.vo.cms.UserInfoForEditVo;
 import com.horaoen.sailor.web.vo.message.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -142,5 +143,12 @@ public class AdminController {
     public CreatedVo<?> register(@RequestBody @Validated RegisterDto dto) {
         adminService.createUser(dto);
         return new CreatedVo<>(11);
+    }
+    
+    @GetMapping("/user/{userId}")
+    @Operation(summary = "用户管理-获取用户信息")
+    public UnifyResponseVo<UserInfoForEditVo> getUser(@PathVariable @Positive(message = "{id.positive}") Long userId) {
+        UserInfoForEditVo userInfo = adminService.getUserInfoForEdit(userId);
+        return new UnifyResponseVo<>(userInfo);
     }
 }

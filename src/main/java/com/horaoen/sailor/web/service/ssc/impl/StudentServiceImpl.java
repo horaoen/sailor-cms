@@ -8,6 +8,7 @@ import com.horaoen.sailor.web.model.ssc.StudentDo;
 import com.horaoen.sailor.web.service.ssc.OrgService;
 import com.horaoen.sailor.web.service.ssc.StudentService;
 import com.horaoen.sailor.web.vo.ssc.OrgVo;
+import com.horaoen.sailor.web.vo.ssc.StudentVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,6 +54,20 @@ public class StudentServiceImpl implements StudentService {
         studentDao.deleteStudent(studentId);
         // 删除学生 部门关系
         orgService.deleteOrgStudentRelation(studentId);
+    }
+
+    @Override
+    public void updateStudent(String studentId, StudentDto dto) {
+        
+    }
+
+    @Override
+    public StudentVo getStudent(String studentId) {
+        throwStudentNotExistByStudentId(studentId);
+        StudentDo studentDo = studentDao.selectByStudentId(studentId);
+        StudentVo studentVo = new StudentVo();
+        BeanUtils.copyProperties(studentDo, studentVo);
+        return studentVo;
     }
 
     private void throwStudentNotExistByStudentId(String studentId) {

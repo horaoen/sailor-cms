@@ -3,6 +3,7 @@ package com.horaoen.sailor.web.service.cms;
 import com.horaoen.sailor.web.dto.user.RegisterDto;
 import com.horaoen.sailor.web.model.cms.PermissionDo;
 import com.horaoen.sailor.web.model.cms.UserDo;
+import com.horaoen.sailor.web.vo.cms.UserInfoForEditVo;
 import com.horaoen.sailor.web.vo.cms.UserInfoVo;
 
 import java.util.List;
@@ -74,4 +75,11 @@ public interface UserService {
      * @param userDo 用户信息
      */
     void updateUser(UserDo userDo);
+
+    /**
+     * 获取用于更新的用户信息
+     * @param userId 用户id
+     * @return 用户信息
+     */
+    UserInfoForEditVo getUserInfoForEdit(Long userId);
 }
