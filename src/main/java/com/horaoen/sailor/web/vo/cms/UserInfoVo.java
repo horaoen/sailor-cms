@@ -55,7 +55,7 @@ public class UserInfoVo {
         int i = ancestors.lastIndexOf("-");
         String org;
         if(i != -1) {
-            org = ancestors.substring(ancestors.lastIndexOf("-"));
+            org = ancestors.substring(ancestors.lastIndexOf("-") + 1);
         } else {
             org = ancestors;
         }
