@@ -30,6 +30,7 @@
         <springdoc.version>1.6.11</springdoc.version>
         <jhash.version>2.2.0</jhash.version>
         <jwt.version>4.0.0</jwt.version>
+        <easyexcel.version>3.1.1</easyexcel.version>
     </properties>
 
     <dependencies>
@@ -88,6 +89,12 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>${easyexcel.version}</version>
         </dependency>
         
     </dependencies>

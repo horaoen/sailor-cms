@@ -1,5 +1,7 @@
 package com.horaoen.sailor.web.controller.ssc;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.support.ExcelTypeEnum;
 import com.github.pagehelper.PageHelper;
 import com.horaoen.sailor.web.common.util.PageUtil;
 import com.horaoen.sailor.web.dto.student.StudentDto;
@@ -14,8 +16,13 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.List;
 
 /**
  * @author horaoen
@@ -71,6 +78,25 @@ public class StudentController {
     ) {
         PageHelper.startPage(page, count);
         return PageUtil.build(studentService.getAllStudent());
+    }
+    
+    @GetMapping("excel")
+    @Operation(summary = "学生管理-导出excel")
+    public void exportStudentExcel(HttpServletResponse response) throws IOException {
+        List<StudentVo> allStudent = studentService.getAllStudent();
+        setExcelRespProp(response, "学生信息");
+        EasyExcel.write(response.getOutputStream())
+                .head(StudentVo.class)
+                .excelType(ExcelTypeEnum.XLSX)
+                .sheet("学生信息")
+                .doWrite(allStudent);
+    }
+
+    private void setExcelRespProp(HttpServletResponse response, String rawFileName) throws UnsupportedEncodingException {
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setCharacterEncoding("utf-8");
+        String fileName = URLEncoder.encode(rawFileName, "UTF-8").replaceAll("\\+", "%20");
+        response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
     }
     
     
