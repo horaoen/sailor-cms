@@ -67,6 +67,7 @@
         WHERE id = #{id}
           AND delete_time IS NULL
     </select>
+    
     <select id="selectGroupByName" resultType="com.horaoen.sailor.web.model.cms.GroupDo">
         SELECT *
         FROM sailor_group

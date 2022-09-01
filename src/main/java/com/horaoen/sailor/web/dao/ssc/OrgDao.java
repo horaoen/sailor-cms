@@ -63,4 +63,11 @@ public interface OrgDao {
      * @return 部门信息
      */
     OrgDo selectOrgByUserId(Long userId);
+
+    /**
+     * 根据学号获取部门信息
+     * @param studentId 学号
+     * @return 部门信息
+     */
+    OrgDo selectOrgByStudentId(String studentId);
 }

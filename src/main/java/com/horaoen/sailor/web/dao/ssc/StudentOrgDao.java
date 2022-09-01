@@ -20,4 +20,17 @@ public interface StudentOrgDao {
      * @param studentId
      */
     void deleteByStudentId(String studentId);
+
+    /**
+     * 根据orgId计算学生数量
+     * @param orgId 组织id
+     * @return 学生数量
+     */
+    int countStudentByOrgId(Long orgId);
+
+    /** 获取组织id根据学生id
+     * @param studentId 学生id
+     * @return 组织id
+     */
+    Long selectOrgIdByStudentId(String studentId);
 }

@@ -10,6 +10,7 @@ import com.horaoen.sailor.web.service.cms.GroupService;
 import com.horaoen.sailor.web.service.cms.PermissionService;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
 import com.horaoen.sailor.web.vo.cms.PermissionVo;
+import com.horaoen.sailor.web.vo.cms.UserInfoForEditVo;
 import lombok.val;
 import org.springframework.stereotype.Service;
 
@@ -116,6 +117,17 @@ public class GroupServiceImpl implements GroupService {
     public void updateUserGroups(Long userId, List<Long> groupIds) {
         userGroupDao.deleteUserGroupsByUserId(userId);
         userGroupDao.insertUserGroups(userId, groupIds);
+    }
+
+    @Override
+    public GroupVo getGroupByGroupName(String groupName) {
+        List<GroupDo> groupDo = groupDao.selectGroupByName(groupName);
+        if(groupDo.size() > 0) {
+            GroupVo groupVo = new GroupVo();
+            BeanUtil.copyProperties(groupDo.get(0), groupVo);
+            return groupVo;
+        }
+        return null;
     }
 
     @Override

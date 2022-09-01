@@ -97,7 +97,19 @@ public class OrgServiceImpl implements OrgService {
         for (OrgDo organ: organs) {
             toDeleteIds.addAll(getAllSubOrgansId(organ, organList));
         }
+        throwOrgDeleteException(toDeleteIds);
         orgDao.deleteByIds(new ArrayList<>(toDeleteIds));
+    }
+
+    private void throwOrgDeleteException(Set<Long> toDeleteIds) {
+        toDeleteIds.forEach(id -> {
+            if (userOrgDao.countUserByOrgId(id) > 0) {
+                throw new ForbiddenException("该组织下存在用户，不能删除");
+            }
+            if (studentOrgDao.countStudentByOrgId(id) > 0) {
+                throw new ForbiddenException("该组织下存在学生，不能删除");
+            }
+        });
     }
 
     @Override
@@ -131,6 +143,14 @@ public class OrgServiceImpl implements OrgService {
     @Override
     public void deleteOrgStudentRelation(String studentId) {
         studentOrgDao.deleteByStudentId(studentId);
+    }
+
+    @Override
+    public OrgVo geOrgByStudentId(String studentId) {
+        OrgDo orgDo = orgDao.selectOrgByStudentId(studentId);
+        OrgVo orgVo = new OrgVo();
+        BeanUtils.copyProperties(orgDo, orgVo);
+        return orgVo;
     }
 
     private Set<Long> getAllSubOrgansId(OrgDo organ, List<OrgDo> organList) {

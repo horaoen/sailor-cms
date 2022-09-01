@@ -102,6 +102,23 @@
         WHERE u.nickname = #{nickname}
           AND u.delete_time IS NULL
     </select>
+    <select id="selectUserByOrgIdAndGroupId" resultType="com.horaoen.sailor.web.model.cms.UserDo">
+    SELECT *
+    FROM sailor_user AS u
+    WHERE u.id IN
+          (
+              SELECT ug.user_id
+              FROM sailor_user_group AS ug
+              WHERE ug.group_id = #{groupId}
+                AND ug.user_id IN
+                    (
+                        SELECT uo.user_id
+                        FROM sailor_user_org AS uo
+                        WHERE uo.org_id = #{orgId}
+                    )
+          )
+            AND u.delete_time IS NULL
+    </select>
 
 
 </mapper>

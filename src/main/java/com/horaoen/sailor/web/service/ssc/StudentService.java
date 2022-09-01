@@ -1,7 +1,10 @@
 package com.horaoen.sailor.web.service.ssc;
 
 import com.horaoen.sailor.web.dto.student.StudentDto;
+import com.horaoen.sailor.web.vo.ssc.StudentForEditVo;
 import com.horaoen.sailor.web.vo.ssc.StudentVo;
+
+import java.util.List;
 
 /**
  * @author horaoen
@@ -32,5 +35,11 @@ public interface StudentService {
      * @param studentId 学生id
      * @return 学生信息
      */
-    StudentVo getStudent(String studentId);
+    StudentForEditVo getStudent(String studentId);
+
+    /**
+     * 获取学生列表
+     * @return 学生列表
+     */
+    List<StudentVo> getAllStudent();
 }

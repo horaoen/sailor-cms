@@ -3,6 +3,8 @@ package com.horaoen.sailor.web.dao.ssc;
 import com.horaoen.sailor.web.model.ssc.StudentDo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * @author horaoen
  */
@@ -33,4 +35,10 @@ public interface StudentDao {
      * @param studentId 学生id
      */
     void deleteStudent(String studentId);
+
+    /**
+     * 获取全部学生信息
+     * @return 学生信息列表
+     */
+    List<StudentDo> selectAll();
 }

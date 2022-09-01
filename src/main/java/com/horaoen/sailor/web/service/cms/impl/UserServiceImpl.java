@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author horaoen
@@ -118,5 +119,16 @@ public class UserServiceImpl implements UserService {
         return userInfo;
     }
 
+    @Override
+    public List<UserInfoForEditVo> getUserByOrgIdAndGroupId(Long orgId, Long groupId) {
+        List<UserDo> userDos = userDao.selectUserByOrgIdAndGroupId(orgId, groupId);
+        return userDos.stream().map(userDo -> {
+            UserInfoForEditVo userInfo = new UserInfoForEditVo();
+            BeanUtils.copyProperties(userDo, userInfo);
+            userInfo.setOrgId(orgId);
+            userInfo.setGroupId(groupId);
+            return userInfo;
+        }).collect(Collectors.toList());
+    }
 
 }

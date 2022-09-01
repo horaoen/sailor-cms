@@ -1,27 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.horaoen.sailor.web.dao.ssc.StudentDao">
-    <insert id="insertStudent">
-        INSERT INTO sailor_student
-        (
-             student_id,
-             id_card,
-             guardian_name,
-             guardian_phone,
-             guardian_id_card,
-             student_name
-         )
-        VALUES
-        (
-             #{studentId},
-             #{idCard},
-             #{guardianName},
-             #{guardianPhone},
-             #{guardianIdCard},
-             #{studentName}
-         )
+    <insert id="insertStudent" parameterType="com.horaoen.sailor.web.model.ssc.StudentDo">
+        INSERT INTO sailor_student (student_id,
+                                    id_card,
+                                    guardian_name,
+                                    guardian_phone,
+                                    guardian_id_card,
+                                    student_name)
+        VALUES (#{studentId},
+                #{idCard},
+                #{guardianName},
+                #{guardianPhone},
+                #{guardianIdCard},
+                #{studentName})
     </insert>
-    
+
     <update id="deleteStudent">
         UPDATE sailor_student
         SET delete_time = now()
@@ -29,10 +23,20 @@
     </update>
 
     <select id="selectByIdCard" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
-        SELECT * FROM sailor_student WHERE id_card = #{idCard}
+        SELECT *
+        FROM sailor_student
+        WHERE id_card = #{idCard}
     </select>
-    
+
     <select id="selectByStudentId" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
-        SELECT * FROM sailor_student WHERE student_id = #{studentId}
+        SELECT *
+        FROM sailor_student
+        WHERE student_id = #{studentId}
+    </select>
+
+    <select id="selectAll" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
+        SELECT *
+        FROM sailor_student
+        WHERE delete_time is null
     </select>
 </mapper>

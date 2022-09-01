@@ -37,4 +37,12 @@ public interface UserDao {
      * @param userDo 用户信息
      */
     void updateUser(UserDo userDo);
+
+    /**
+     * 根据用户组织id和部门id筛查用户
+     * @param orgId 部门id
+     * @param groupId 组id
+     * @return 用户列表
+     */
+    List<UserDo> selectUserByOrgIdAndGroupId(Long orgId, Long groupId);
 }

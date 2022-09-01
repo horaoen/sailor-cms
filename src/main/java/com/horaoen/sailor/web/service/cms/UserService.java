@@ -82,4 +82,12 @@ public interface UserService {
      * @return 用户信息
      */
     UserInfoForEditVo getUserInfoForEdit(Long userId);
+
+    /**
+     * 根据组织和角色筛选用户
+     * @param orgId 组织id
+     * @param groupId 角色id
+     * @return 用户列表
+     */
+    List<UserInfoForEditVo> getUserByOrgIdAndGroupId(Long orgId, Long groupId);
 }

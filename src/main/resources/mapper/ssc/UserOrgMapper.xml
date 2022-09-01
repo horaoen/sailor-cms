@@ -16,4 +16,8 @@
             org_id = #{orgId}
         where user_id = #{userId}
     </update>
+    
+    <select id="countUserByOrgId" resultType="java.lang.Integer">
+        Count(*) from sailor_user_org where org_id = #{orgId}
+    </select>
 </mapper>

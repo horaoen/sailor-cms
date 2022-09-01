@@ -4,6 +4,7 @@ import com.horaoen.sailor.web.bo.cms.GroupPermissionBo;
 import com.horaoen.sailor.web.common.enumeration.GroupLevelEnum;
 import com.horaoen.sailor.web.model.cms.GroupDo;
 import com.horaoen.sailor.web.vo.cms.GroupVo;
+import com.horaoen.sailor.web.vo.cms.UserInfoForEditVo;
 
 import java.util.List;
 
@@ -107,4 +108,11 @@ public interface GroupService {
      * @param groupIds 用户组id列表
      */
     void updateUserGroups(Long userId, List<Long> groupIds);
+
+    /**
+     * 通过分组名获取分组信息
+     * @param groupName 分组名
+     * @return 分组信息
+     */
+    GroupVo getGroupByGroupName(String groupName);
 }

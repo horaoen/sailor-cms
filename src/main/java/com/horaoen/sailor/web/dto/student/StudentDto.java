@@ -25,7 +25,7 @@ public class StudentDto {
     
     @JsonProperty("studentId")
     @Schema(description = "学生学号", example = "A2020008601")
-    @Pattern(regexp = "^[A-Z]/d{10}", message = "{student.id.pattern}")
+    @Pattern(regexp = "^[A-Z]\\d{10}", message = "{student.id.pattern}")
     private String studentId;
     
     @JsonProperty("idCard")

@@ -21,4 +21,11 @@ public interface UserOrgDao {
      * @param orgId 组织id
      */
     void update(@Param("userId") Long userId, @Param("orgId") Long orgId);
+
+    /**
+     * 根据orgId计算用户数量
+     * @param orgId 组织id
+     * @return 用户数量
+     */
+    int countUserByOrgId(Long orgId);
 }

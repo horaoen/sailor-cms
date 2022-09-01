@@ -92,4 +92,11 @@ public interface OrgService {
      * @param studentId 学号
      */
     void deleteOrgStudentRelation(String studentId);
+
+    /**
+     * 获取学生所在班级
+     * @param studentId 学号
+     * @return 所在部门（班级）
+     */
+    OrgVo geOrgByStudentId(String studentId);
 }
