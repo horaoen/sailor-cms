@@ -41,4 +41,10 @@ public interface StudentDao {
      * @return 学生信息列表
      */
     List<StudentDo> selectAll();
+
+    /**
+     * 更新学生信息
+     * @param studentDo 学生信息
+     */
+    void updateStudent(StudentDo studentDo);
 }

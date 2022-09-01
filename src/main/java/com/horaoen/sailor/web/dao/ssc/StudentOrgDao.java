@@ -33,4 +33,11 @@ public interface StudentOrgDao {
      * @return 组织id
      */
     Long selectOrgIdByStudentId(String studentId);
+
+    /**
+     * 更新学生部门
+     * @param studentId 学生id
+     * @param orgId 组织id
+     */
+    void update(String studentId, Long orgId);
 }

@@ -3,6 +3,7 @@ package com.horaoen.sailor.web.controller.ssc;
 import com.github.pagehelper.PageHelper;
 import com.horaoen.sailor.web.common.util.PageUtil;
 import com.horaoen.sailor.web.dto.student.StudentDto;
+import com.horaoen.sailor.web.dto.student.StudentForUpdateDto;
 import com.horaoen.sailor.web.service.ssc.OrgService;
 import com.horaoen.sailor.web.service.ssc.StudentService;
 import com.horaoen.sailor.web.vo.message.*;
@@ -48,7 +49,7 @@ public class StudentController {
     @PutMapping("/{studentId}")
     @Operation(summary = "学生管理-更新信息")
     public UpdatedVo<?> updateStudent(@PathVariable String studentId,
-                                      @RequestBody @Validated StudentDto dto) {
+                                      @RequestBody @Validated StudentForUpdateDto dto) {
         studentService.updateStudent(studentId, dto);
         return new UpdatedVo<>(23);
     }

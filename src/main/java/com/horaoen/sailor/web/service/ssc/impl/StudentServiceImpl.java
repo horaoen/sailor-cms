@@ -1,10 +1,12 @@
 package com.horaoen.sailor.web.service.ssc.impl;
 
+import com.horaoen.sailor.autoconfigure.exception.ForbiddenException;
 import com.horaoen.sailor.autoconfigure.exception.HttpException;
 import com.horaoen.sailor.autoconfigure.exception.NotFoundException;
 import com.horaoen.sailor.web.dao.ssc.StudentDao;
 import com.horaoen.sailor.web.dao.ssc.StudentOrgDao;
 import com.horaoen.sailor.web.dto.student.StudentDto;
+import com.horaoen.sailor.web.dto.student.StudentForUpdateDto;
 import com.horaoen.sailor.web.model.ssc.StudentDo;
 import com.horaoen.sailor.web.service.cms.GroupService;
 import com.horaoen.sailor.web.service.cms.UserService;
@@ -71,8 +73,21 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudent(String studentId, StudentDto dto) {
-        
+    @Transactional(rollbackFor = Exception.class)
+    public void updateStudent(String studentId, StudentForUpdateDto dto) {
+        // 检查studentId是否存在
+        // 如果orgId变动了，检查orgIdg 是否是班级，是否存在
+        throwStudentNotExistByStudentId(studentId);
+        Long studentOrgId = studentOrgDao.selectOrgIdByStudentId(studentId);
+        if(!studentOrgId.equals(dto.getOrgId())) {
+            throwOrgNotClassByOrgId(dto.getOrgId());
+            orgService.updateStudentOrgRelation(studentId, dto.getOrgId());
+        }
+        // 更新学生信息
+        StudentDo studentDo = new StudentDo();
+        BeanUtils.copyProperties(dto, studentDo);
+        studentDo.setStudentId(studentId);
+        studentDao.updateStudent(studentDo);
     }
 
     @Override
@@ -128,7 +143,7 @@ public class StudentServiceImpl implements StudentService {
         OrgVo org = orgService.getOrgByOrgId(orgId);
         String delimiter = "-";
         if (org == null || org.getAncestors().split(delimiter).length != 4) {
-            throw new HttpException(10205);
+            throw new ForbiddenException(10205);
         }
     }
     

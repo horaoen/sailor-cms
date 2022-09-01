@@ -11,12 +11,21 @@
             #{orgId}
         )
     </insert>
+    
+    <update id="update">
+        UPDATE sailor_student_org
+        SET org_id = #{orgId}
+        WHERE student_id = #{studentId}
+    </update>
+    
     <delete id="deleteByStudentId">
         DELETE FROM sailor_student_org WHERE student_id = #{studentId}
     </delete>
+    
     <select id="countStudentByOrgId" resultType="java.lang.Integer">
         COUNT(*) FROM sailor_student_org WHERE org_id = #{orgId}
     </select>
+    
     <select id="selectOrgIdByStudentId" resultType="java.lang.Long">
         SELECT org_id FROM sailor_student_org WHERE student_id = #{studentId}
     </select>

@@ -56,7 +56,7 @@ public class OrgServiceImpl implements OrgService {
 
     @Override
     public OrgVo getOrgByOrgId(Long orgId) {
-        // TODO 检查orgId是否存在
+        throwOrgNotExistById(orgId);
         OrgDo orgDo = orgDao.selectOrgById(orgId);
         OrgVo orgVo = new OrgVo();
         BeanUtils.copyProperties(orgDo, orgVo);
@@ -151,6 +151,11 @@ public class OrgServiceImpl implements OrgService {
         OrgVo orgVo = new OrgVo();
         BeanUtils.copyProperties(orgDo, orgVo);
         return orgVo;
+    }
+
+    @Override
+    public void updateStudentOrgRelation(String studentId, Long orgId) {
+        studentOrgDao.update(studentId, orgId);
     }
 
     private Set<Long> getAllSubOrgansId(OrgDo organ, List<OrgDo> organList) {

@@ -1,6 +1,7 @@
 package com.horaoen.sailor.web.service.ssc;
 
 import com.horaoen.sailor.web.dto.student.StudentDto;
+import com.horaoen.sailor.web.dto.student.StudentForUpdateDto;
 import com.horaoen.sailor.web.vo.ssc.StudentForEditVo;
 import com.horaoen.sailor.web.vo.ssc.StudentVo;
 
@@ -28,7 +29,7 @@ public interface StudentService {
      * @param studentId 学生id
      * @param dto 学生信息
      */
-    void updateStudent(String studentId, StudentDto dto);
+    void updateStudent(String studentId, StudentForUpdateDto dto);
 
     /**
      * 通过id获取学生信息

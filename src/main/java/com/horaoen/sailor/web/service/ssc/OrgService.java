@@ -99,4 +99,11 @@ public interface OrgService {
      * @return 所在部门（班级）
      */
     OrgVo geOrgByStudentId(String studentId);
+
+    /**
+     * 更新学生 部门关系
+     * @param studentId 学号
+     * @param orgId 部门id
+     */
+    void updateStudentOrgRelation(String studentId, Long orgId);
 }

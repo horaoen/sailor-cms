@@ -21,6 +21,15 @@
         SET delete_time = now()
         WHERE student_id = #{studentId}
     </update>
+    <update id="updateStudent">
+        UPDATE sailor_student
+        SET
+            guardian_name = #{guardianName},
+            guardian_phone = #{guardianPhone},
+            guardian_id_card = #{guardianIdCard},
+            student_name = #{studentName}
+        WHERE student_id = #{studentId}
+    </update>
 
     <select id="selectByIdCard" resultType="com.horaoen.sailor.web.model.ssc.StudentDo">
         SELECT *
